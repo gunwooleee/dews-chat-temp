@@ -113,7 +113,7 @@ export default function Login() {
 
       // setContextUserId(userId);
       localStorage.setItem("userId", userId);
-      localStorage.setItem("llm_type", "gpt4");
+      localStorage.setItem("llm_type", "gpt_oss_120b");
       localStorage.setItem("top_p", "0.95");
       localStorage.setItem("temperature", "0.7");
 

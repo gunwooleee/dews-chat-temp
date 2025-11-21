@@ -151,7 +151,7 @@ export const ChatManagerProvider = ({ children }: { children: ReactNode }) => {
   const [roomId, setRoomId] = useState<string | undefined>(undefined);
   // projectId 도 [roomId, setRoomId] 처럼 관리...
   const [codes, setCodes] = useState<Code[]>([]);
-  const [llmModel, setLlmModel] = useState<string>("gpt4");
+  const [llmModel, setLlmModel] = useState<string>("llama_douzone");
 
   const [toppvalue, setTopPValue] = useState<string>("0.95");
   const [tempvalue, setTempValue] = useState<string>("0.2");
