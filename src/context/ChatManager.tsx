@@ -799,18 +799,19 @@ export const ChatManagerProvider = ({ children }: { children: ReactNode }) => {
   const changeHyperParameter = async (
     top_p?: string,
     temperature?: string,
-    max_token?: string,
+
   ) => {
     if (
       top_p === undefined ||
-      temperature === undefined ||
-      max_token === undefined
+      temperature === undefined
     )
       return;
+    console.log("top_p : ", top_p, "temperature : ", temperature, "")
     setTopPValue(top_p);
     setTempValue(temperature);
     localStorage.setItem("top_p", top_p);
     localStorage.setItem("temperature", temperature);
+
   };
 
   return (

@@ -8,32 +8,34 @@ type SystemSettingProps = {
   onApply: (val1: string, val2: string) => void;
   isOpen: boolean;
   onClose?: () => void;
+  currentTemperature?: string;
+  currentTopP?: string;
 };
 
-const dropdownlist01 = [
-  { value: "0", text: "0.1 (낮은 창의성,안정적인 답변)" },
-  { value: "1", text: "0.2 (낮은 창의성,안정적인 답변)" },
-  { value: "2", text: "0.3 (낮은 창의성,안정적인 답변)" },
-  { value: "3", text: "0.4 (중간 창의성)" },
-  { value: "4", text: "0.5 (중간 창의성)" },
-  { value: "5", text: "0.6 (중간 창의성)" },
-  { value: "6", text: "0.7 (높은 창의성)" },
-  { value: "7", text: "0.8 (높은 창의성)" },
-  { value: "8", text: "0.9 (높은 창의성)" },
-  { value: "9", text: "1.0 (높은 창의성)" },
+const temperatureList = [
+  { value: "0.1", text: "0.1 (낮은 창의성,안정적인 답변)" },
+  { value: "0.2", text: "0.2 (낮은 창의성,안정적인 답변)" },
+  { value: "0.3", text: "0.3 (낮은 창의성,안정적인 답변)" },
+  { value: "0.4", text: "0.4 (중간 창의성)" },
+  { value: "0.5", text: "0.5 (중간 창의성)" },
+  { value: "0.6", text: "0.6 (중간 창의성)" },
+  { value: "0.7", text: "0.7 (높은 창의성)" },
+  { value: "0.8", text: "0.8 (높은 창의성)" },
+  { value: "0.9", text: "0.9 (높은 창의성)" },
+  { value: "1.0", text: "1.0 (높은 창의성)" },
 ];
 
-const dropdownlist02 = [
-  { value: "0", text: "0.1 (예측 가능한 어휘 활용)" },
-  { value: "1", text: "0.2 (예측 가능한 어휘 활용)" },
-  { value: "2", text: "0.3 (예측 가능한 어휘 활용)" },
-  { value: "3", text: "0.4 (보통의 어휘 활용)" },
-  { value: "4", text: "0.5 (보통의 어휘 활용)" },
-  { value: "5", text: "0.6 (보통의 어휘 활용)" },
-  { value: "6", text: "0.7 (폭넓은 어휘 활용)" },
-  { value: "7", text: "0.8 (폭넓은 어휘 활용)" },
-  { value: "8", text: "0.9 (폭넓은 어휘 활용)" },
-  { value: "9", text: "1.0 (폭넓은 어휘 활용)" },
+const topPList = [
+  { value: "0.1", text: "0.1 (예측 가능한 어휘 활용)" },
+  { value: "0.2", text: "0.2 (예측 가능한 어휘 활용)" },
+  { value: "0.3", text: "0.3 (예측 가능한 어휘 활용)" },
+  { value: "0.4", text: "0.4 (보통의 어휘 활용)" },
+  { value: "0.5", text: "0.5 (보통의 어휘 활용)" },
+  { value: "0.6", text: "0.6 (보통의 어휘 활용)" },
+  { value: "0.7", text: "0.7 (폭넓은 어휘 활용)" },
+  { value: "0.8", text: "0.8 (폭넓은 어휘 활용)" },
+  { value: "0.9", text: "0.9 (폭넓은 어휘 활용)" },
+  { value: "0.95", text: "1.0 (폭넓은 어휘 활용)" },
 ];
 
 const themeOptions = [
@@ -43,9 +45,9 @@ const themeOptions = [
   // { value: "system", text: "시스템 테마" },
 ];
 
-const SystemSetting = ({ onApply, isOpen, onClose }: SystemSettingProps) => {
-  const [selectedValue1, setSelectedValue1] = useState("2");
-  const [selectedValue2, setSelectedValue2] = useState("6");
+const SystemSetting = ({ onApply, isOpen, onClose}: SystemSettingProps) => {
+  const [temperatureValue, setTemperatureValue] = useState("0.2");
+  const [topPValue, setTopPValue] = useState("0.95");
   const [selectedTheme, setSelectedTheme] = useState("light");
   const [isSettingSave, setIsSettingSave] = useState(false);
   const [isSettingReset, setIsSettingReset] = useState(false);
@@ -59,6 +61,16 @@ const SystemSetting = ({ onApply, isOpen, onClose }: SystemSettingProps) => {
       setSelectedTheme(storedTheme);
     }
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const storedTemp = localStorage.getItem("temperature");
+    const storedTopP = localStorage.getItem("top_p");
+
+    if (storedTemp) setTemperatureValue(storedTemp);
+    if (storedTopP) setTopPValue(storedTopP);
+  }, []);
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -79,13 +91,16 @@ const SystemSetting = ({ onApply, isOpen, onClose }: SystemSettingProps) => {
   }, [isOpen, onClose]);
 
   const handleSave = () => {
-    onApply(selectedValue1, selectedValue2);
+    onApply(topPValue,temperatureValue);
     setIsSettingSave(true);
     setTheme(selectedTheme as Theme);
     onClose?.();
   };
 
   const handleClose = () => {
+    //temp값으로 이전값으로 setTemp, setTopP 값 다시 넣기
+    // 코드 추가
+
     onClose?.();
   };
 
@@ -94,8 +109,9 @@ const SystemSetting = ({ onApply, isOpen, onClose }: SystemSettingProps) => {
   };
 
   const handleReset = () => {
-    setSelectedValue1("2");
-    setSelectedValue2("6");
+    setTemperatureValue("0.2");
+    setTopPValue("0.95");
+    onApply("0.95","0.2")
     setIsSettingReset(true);
     onClose?.();
   };
@@ -152,11 +168,11 @@ const SystemSetting = ({ onApply, isOpen, onClose }: SystemSettingProps) => {
                 />
               </div>
               <DEWSDropDownList
-                options={dropdownlist01}
-                value={selectedValue1}
+                options={temperatureList}
+                value={temperatureValue}
                 isOpen={openDropdown === "creativity"}
                 onToggle={() => toggleDropdown("creativity")}
-                onSelect={(item) => setSelectedValue1(item.value)}
+                onSelect={(item) => setTemperatureValue(item.value)}
               />
               <div className="tit h-box v-align-center">
                 <div className="txt">어휘력 조절</div>
@@ -174,11 +190,11 @@ const SystemSetting = ({ onApply, isOpen, onClose }: SystemSettingProps) => {
                 />
               </div>
               <DEWSDropDownList
-                options={dropdownlist02}
-                value={selectedValue2}
+                options={topPList}
+                value={topPValue}
                 isOpen={openDropdown === "vocab"}
                 onToggle={() => toggleDropdown("vocab")}
-                onSelect={(item) => setSelectedValue2(item.value)}
+                onSelect={(item) => setTopPValue(item.value)}
               />
               <div className="tit h-box v-align-center">
                 <div className="txt">테마</div>
