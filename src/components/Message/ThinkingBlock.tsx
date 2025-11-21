@@ -8,16 +8,20 @@ import Image from "next/image";
 import { formatThinking } from "@/utils/chat/formatThinking";
 import { useStreamingTimer } from "@/utils/chat/useStreamingTimer";
 
+type ThinkingBlockMode = "streaming" | "final" | "loaded";
+
 type ThinkingBlockProps = {
   text: string;
   defaultCollapsed?: boolean;
   isStreaming?: boolean; // 스트리밍 진행 여부
+  mode?: ThinkingBlockMode,
 };
 
 const ThinkingBlock = ({
   text,
   defaultCollapsed = false,
   isStreaming = true,
+
 }: ThinkingBlockProps) => {
   const [collapsed, setCollapsed] = useState(defaultCollapsed);
   const displayText = useMemo(() => formatThinking(text), [text]);
@@ -27,61 +31,10 @@ const ThinkingBlock = ({
     setCollapsed(defaultCollapsed);
   }, [defaultCollapsed]);
 
-  // // 경과 시간 측정: 스트리밍 시작~종료 (0초부터)
-  // const [startedAt, setStartedAt] = useState<number | null>(null);
-  // const [liveSec, setLiveSec] = useState(0);
-  // const [finalSec, setFinalSec] = useState<number | null>(null);
-  // const timerRef = useRef<number | null>(null);
-  // const startedAtRef = useRef<number | null>(null);
-
   const { elapsedSec, finalSec } = useStreamingTimer({
     isActive: !!isStreaming,
   });
   const headerTitle = isStreaming ? "생각 중..." : `${finalSec}초 동안 생각함`;
-
-  //   useEffect(() => {
-  //   startedAtRef.current = startedAt;
-  // }, [startedAt]);
-
-  // useEffect(() => {
-  //   if (isStreaming) {
-  //     if (startedAt === null) {
-  //       const now = Date.now();
-  //       setStartedAt(now);
-  //       setLiveSec(0); // 0초부터 시작
-  //     }
-  //     if (timerRef.current == null) {
-  //       timerRef.current = window.setInterval(() => {
-  //         const sa = startedAtRef.current;
-  //         if (sa != null) {
-  //           const sec = Math.max(0, Math.floor((Date.now() - sa) / 1000)); // 0 이상
-  //           setLiveSec(sec);
-  //         }
-  //       }, 1000);
-  //     }
-  //   } else {
-  //     if (timerRef.current != null) {
-  //       clearInterval(timerRef.current);
-  //       timerRef.current = null;
-  //     }
-  //     if (startedAt !== null && finalSec === null) {
-  //       const sec = Math.max(0, Math.floor((Date.now() - startedAt) / 1000)); // 0 이상
-  //       setFinalSec(sec);
-  //     }
-  //   }
-  //
-  //   return () => {
-  //     if (timerRef.current != null) {
-  //       clearInterval(timerRef.current);
-  //       timerRef.current = null;
-  //     }
-  //   };
-  // }, [isStreaming, startedAt, finalSec]);
-
-  // // 헤더 문구: 스트리밍 중 → "생각중...", 종료 후 → "{n}초 동안 생각함 v"
-  // const headerTitle = isStreaming
-  //   ? "생각 중..."
-  //   : `${(finalSec ?? liveSec).toString()}초 동안 생각함`;
 
   return (
     <div

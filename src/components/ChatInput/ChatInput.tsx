@@ -184,7 +184,6 @@ const ChatInput = ({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
-    console.log("notAllowed", notAllowed);
 
     const fileArray = Array.from(files);
     if (localStorage.getItem("llm_type") !== "gpt4") {
@@ -361,34 +360,35 @@ const ChatInput = ({
         <div
           className={`subFnBtns h-box v-align-center ${chatLoadingAnalytic || chatLoadingGenerating ? "disabled" : ""}`}
           ref={uploadButtonRef}
+          style={{ height:"35px"}}
         >
-          {chatLoadingAnalytic || chatLoadingGenerating ? (
-            // 로딩일때
-            <>{!notAllowed && <div className="fnBtn add" />} </>
-          ) : (
-            // 기본
-            <>
-              {!notAllowed && (
-                <DEWSTooltip
-                  className="fnBtn add"
-                  labelText={"첨부파일 추가"}
-                  position="bottom"
-                  onMouseDown={(e) => {
-                    e.stopPropagation();
-                    if (window.localStorage.getItem("llm_type") === "gpt4") {
-                      setIsShowUploadOptions((prev) => !prev);
-                    } else {
-                      setIsNotAllowedExtension(true);
-                      if (fileInputRef.current) {
-                        fileInputRef.current.files = null;
-                        fileInputRef.current.value = "";
-                      }
-                    }
-                  }}
-                />
-              )}
-            </>
-          )}
+          {/*{chatLoadingAnalytic || chatLoadingGenerating ? (*/}
+          {/*  // 로딩일때*/}
+          {/*  <>{!notAllowed && <div className="fnBtn add" />} </>*/}
+          {/*) : (*/}
+          {/*  // 기본*/}
+          {/*  <>*/}
+          {/*    {!notAllowed && (*/}
+          {/*      <DEWSTooltip*/}
+          {/*        className="fnBtn add"*/}
+          {/*        labelText={"첨부파일 추가"}*/}
+          {/*        position="bottom"*/}
+          {/*        onMouseDown={(e) => {*/}
+          {/*          e.stopPropagation();*/}
+          {/*          if (window.localStorage.getItem("llm_type") === "gpt4") {*/}
+          {/*            setIsShowUploadOptions((prev) => !prev);*/}
+          {/*          } else {*/}
+          {/*            setIsNotAllowedExtension(true);*/}
+          {/*            if (fileInputRef.current) {*/}
+          {/*              fileInputRef.current.files = null;*/}
+          {/*              fileInputRef.current.value = "";*/}
+          {/*            }*/}
+          {/*          }*/}
+          {/*        }}*/}
+          {/*      />*/}
+          {/*    )}*/}
+          {/*  </>*/}
+          {/*)}*/}
         </div>
         {/* 외부 파일 업로드 버튼영역 */}
         <div

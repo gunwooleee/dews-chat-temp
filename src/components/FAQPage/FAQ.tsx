@@ -107,28 +107,28 @@ const FAQ = ({ closeModal }: FAQProps) => {
         </dd>
       ),
     },
-    {
-      category: "GEN AI DEWS",
-      title: "지원하는 모델을 선택할 수 있나요?",
-      content: (
-        <dd>
-          네, GEN AI DEWS는 총 3개의 모델을 지원하고 있어요.
-          <ul>
-            <li>
-              EXAONE-3-5-32b : 한국어 최적화, 다양한 산업 분야에서의 활용이
-              가능합니다.
-            </li>
-            <li>
-              ChatGPT4o : GEN AI DEWS에 최적화되어 대부분의 질문에 탁월합니다.
-            </li>
-            <li>
-              Llama-douzone-3.3-70b : 효율적인 학습과 추론, 높은 성능, 다양한
-              언어를 지원합니다.
-            </li>
-          </ul>
-        </dd>
-      ),
-    },
+    // {
+    //   category: "GEN AI DEWS",
+    //   title: "지원하는 모델을 선택할 수 있나요?",
+    //   content: (
+    //     <dd>
+    //       네, GEN AI DEWS는 총 3개의 모델을 지원하고 있어요.
+    //       <ul>
+    //         <li>
+    //           EXAONE-3-5-32b : 한국어 최적화, 다양한 산업 분야에서의 활용이
+    //           가능합니다.
+    //         </li>
+    //         <li>
+    //           ChatGPT4o : GEN AI DEWS에 최적화되어 대부분의 질문에 탁월합니다.
+    //         </li>
+    //         <li>
+    //           Llama-douzone-3.3-70b : 효율적인 학습과 추론, 높은 성능, 다양한
+    //           언어를 지원합니다.
+    //         </li>
+    //       </ul>
+    //     </dd>
+    //   ),
+    // },
     {
       category: "채팅",
       title: "어떤 언어의 코드를 생성할 수 있나요?",

@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "http://10.106.10.220:8081/api/:path*",
+        destination: "https://genai.douzone.com/api/:path*",
       },
     ];
   },

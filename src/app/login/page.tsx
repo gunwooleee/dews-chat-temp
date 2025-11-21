@@ -146,7 +146,7 @@ export default function Login() {
                   type="text"
                   id="compID"
                   disabled={true}
-                  value={"DOUZONE"}
+                  value={"SBJ DNX"}
                   placeholder="회사ID"
                 />
                 {/*<div className='resetBtn' />*/}

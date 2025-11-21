@@ -34,11 +34,11 @@ const logoData: Record<
   },
 };
 const options: ModelOption[] = [
-  {
-    label: "GPT-4o",
-    value: "gpt4",
-    description: "GEN AI DEWS에 최적화되어 대부분의 질문에 탁월함",
-  },
+  // {
+  //   label: "GPT-4o",
+  //   value: "gpt4",
+  //   description: "GEN AI DEWS에 최적화되어 대부분의 질문에 탁월함",
+  // },
   // {
   //   label: "Llama-Douzone-3.3-70b",
   //   value: "llama_douzone",
