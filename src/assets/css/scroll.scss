@@ -1,0 +1,42 @@
+
+.disappearScrollbar {
+  overflow-y: auto;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #d4d5d7 transparent; /* Firefox */
+  /*background-color: #d4d5d7;*/
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.disappearScrollbar::-webkit-scrollbar {
+  width: 2px;
+  /*height: 0px;*/
+  /*background-color: #d4d5d7;*/
+  //transition: width 0.3s ease;
+}
+
+.disappearScrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  //background-color: #d4d5d7;
+  border-radius: 4px;
+  //transition: background-color 0.3s ease;
+}
+
+.disappearScrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+  //background-color: #d4d5d7;
+  //transition: background-color 0.3s ease;
+}
+
+/* Hover 상태일 때만 보이게 */
+.disappearScrollbar:hover::-webkit-scrollbar {
+  width: 8px;
+  //background-color: yellow;
+  opacity: 1;
+}
+
+.disappearScrollbar:hover::-webkit-scrollbar-thumb {
+  //background-color: yellow; /* 스크롤 색상 */
+  width: 0;
+  background-color: #d4d5d7;
+  transition: background-color 0.3s ease;
+}

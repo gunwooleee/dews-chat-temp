@@ -1,0 +1,177 @@
+@charset "utf-8";
+
+/**************************************************
+    Reset
+**************************************************/
+#root{width:100%;height:100%;}
+*{outline:none}
+html,body{width:100%;height:100%;}
+html,body,div,dl,dt,dd,h1,h2,h3,h4,h5,form,fieldset,p,button{margin:0;padding:0;text-shadow:none;}
+html,body,h1,h2,h3,h4,input,button{
+	font-size:15px;
+	font-family:'Pretendard',
+		/*iOS*/AppleSDGothicNeo,
+		/*Android*/sans-serif,roboto,
+		/*Wed*/'돋움',Dotum,'굴림',Gulim;
+}
+body{background-color:#fff;*word-break:break-all;-ms-word-break:break-all; color: #1d2129;}
+img,fieldset,iframe{border:0 none}
+li{list-style:none}
+input,select,button{vertical-align:middle}
+img{vertical-align:top}
+i,em,address{font-style:normal}
+label,button{cursor:pointer}
+button{margin:0;padding:0}
+button *{position:relative}
+button img{left:-3px;*left:auto}
+option{padding-right:6px}
+hr{display:none}
+legend{*width:0}
+blockquote:before,blockquote:after,q:before,q:after{content:""; content:none;}
+table{border-collapse:collapse;border-spacing:0;width:100%;table-layout: fixed;}
+a {text-decoration:none;color:#1d2129;}
+
+/* HTML5 display-role reset for older browsers */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+
+
+/**************************************************
+    Mobile Reset
+**************************************************/
+input[type=text], input[type=url], input[type=email], input[type=password], input[type=tel] {border-radius:0;-webkit-appearance:none;-webkit-border-radius:0;}
+.scrollTouch{-webkit-overflow-scrolling:touch;}
+
+/**************************************************
+    font
+**************************************************/
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 400;
+	src: url('../font/pretendard/Pretendard-Regular.woff') format('woff')
+}
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 600;
+	src: url('../font/pretendard/Pretendard-SemiBold.woff') format('woff')
+}
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: bold;
+	src: url('../font/pretendard/Pretendard-Bold.woff') format('woff')
+}
+
+/**************************************************
+    Common
+**************************************************/
+.ellipsis{overflow:hidden;white-space:nowrap;word-break:break-all;text-overflow:ellipsis}
+.clear:after{content:"";display:block;clear:both;height:0;visibility:hidden;}  /*각 자식요소들 floating 지정으로 높이 인식못하는거 해결*/
+
+/* RVD Flex Class */
+.c-box{/*c-box의 자식요소는 정중앙 배치된다*/
+	display:-webkit-flex;
+	display:flex;
+	-webkit-justify-content:center;
+	-webkit-align-items:center;
+	justify-content:center;
+	align-items:center;
+}
+/* flex */
+.flexBox { display:flex;-ms-display:flex; height:100%; }
+.h-box{display:-webkit-flex;display:flex;-webkit-flex-direction:row;flex-direction:row;min-width:0;min-height:0;}
+.v-box{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;min-width:0;min-height:0;}
+.flex-1{-webkit-flex:1;flex:1;min-width:0;min-height:0;}
+.h-align-start{justify-content:flex-start;}
+.h-align-center{justify-content:center;}
+.h-align-end{justify-content:flex-end;}
+.v-align-start{align-items:flex-start;}
+.v-align-center{align-items:center;}
+.v-align-end{align-items:flex-end;}
+.flex-center{justify-content:center;align-items:center;}
+
+.eventLink{cursor: pointer;}
+
+/*position*/
+.posi_re {position:relative !important;}
+.posi_ab {position:absolute !important;}
+.posi_fix {position:fixed !important;}
+
+/* Align */
+.al {text-align:left !important;}
+.ac {text-align:center !important;}
+.ar {text-align:right !important;}
+
+.vt {vertical-align:top !important;}
+.vm {vertical-align:middle !important;}
+.vb {vertical-align:bottom !important;}
+
+/* Floating */
+.fl {float:left !important;}
+.fr {float:right !important;}
+.cl {clear:both !important;}
+
+/* Font size */
+.f11 {font-size:11px !important;}
+.f12 {font-size:12px !important;}
+.f13 {font-size:13px !important;}
+.f14 {font-size:14px !important;}
+.f15 {font-size:15px !important;}
+
+/* border none */
+.brn{border:none !important}
+.brln{border-left:none !important}
+.brrn{border-right:none !important}
+.brtn{border-top:none !important}
+.brbn{border-bottom:none !important}
+
+/* Font weight */
+.fwb {font-weight:bold !important;}
+.fwn {font-weight:normal !important;}
+
+//스크롤바
+::-webkit-scrollbar {width:4px; height: 4px;}
+::-webkit-scrollbar-track {border-radius: 4px;background-color:transparent;}
+::-webkit-scrollbar-thumb {border-radius: 4px;background-color:#d4d5d7;}
+::-webkit-scrollbar-button {display: none;}
+.darkTheme{
+	&::-webkit-scrollbar-thumb {background-color:rgba(255,255,255,0.1);}
+	&::-webkit-scrollbar-track {background-color:transparent;}
+	::-webkit-scrollbar-thumb {background-color:rgba(255,255,255,0.1);}
+	::-webkit-scrollbar-track {background-color:transparent;}
+}
+
+/*scroll*/
+.scroll_on{overflow:auto !important;}
+.scroll_off{overflow:hidden !important;}
+.scroll_y_on{overflow-x:hidden !important; overflow-y:auto !important;}
+.scroll_x_on{overflow-y:hidden !important; overflow-x:auto !important;}
+.scroll_fix{overflow:scroll !important;}
+.scroll_y_fix{overflow-x:hidden !important; overflow-y:scroll !important;}
+.scroll_x_fix{overflow-y:hidden !important; overflow-x:scroll !important;}
+
+// 딤처리 공통
+.dimFixed{position: fixed;top:-100%;left:-100%;right:-100%;bottom:-100%;width:auto;height:auto;background-color:rgba(0,0,0,0.5);z-index:10;}
+.dim2{position: absolute;top:0;left:0;right:0;bottom:0;width:auto;height:auto;background-color:rgba(0,0,0,0.5);z-index:2;}
+
+/* Padding, Margin style */
+/* 특별한 case외에 사용 자제 */
+.p0 {padding:0 !important;}
+.m0 {margin:0 !important;}
+
+.pt0 {padding-top:0 !important;}
+.pt5 {padding-top:5px !important;}
+.pt10 {padding-top:10px !important;}
+
+.mt0 {margin-top:0px !important;}
+.mt8 {margin-top:8px !important;}
+.mt10 {margin-top:10px !important;}
+.mt12 {margin-top:12px !important;}
+.mt20 {margin-top:20px !important;}
+.mt30 {margin-top:30px !important;}
+
+.ml10 {margin-left:10px !important;}
+
+.mr10 {margin-right:10px !important;}
+
+.mb4{margin-bottom:4px !important;}
+.mb8{margin-bottom:8px !important;}
+.mb10{margin-bottom:10px !important;}

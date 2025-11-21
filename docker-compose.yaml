@@ -1,0 +1,11 @@
+services:
+  portal-frontend:
+    container_name: portal-frontend
+    image: 10.220.1.14:50005/genaidews/chat:latest
+    ports:
+      - "8090:3000"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /data:/data
+    environment:
+      TZ: "Asia/Seoul"

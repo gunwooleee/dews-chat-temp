@@ -1,0 +1,131 @@
+.MarkDownWrapper {
+    /*width: 100%;*/
+    max-width: 100%;
+    /*padding: 0.5rem;*/
+    margin: 0 !important;
+}
+
+
+/*.CodeWrapper {*/
+/*    border-radius: 8px;*/
+/*    border: solid 1px #404143;*/
+/*}*/
+
+.CodeWrapper {
+    border-radius: 8px;
+    /*border: solid 1px #404143;*/
+
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    max-width: 100%;
+}
+
+/*.CodeWrapper,*/
+/*.CodeWrapper pre { white-space:pre-wrap; max-width:100%; overflow-x:auto; }*/
+
+.CodeHeader {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    line-height: 32px;
+    background-color: #28282a;
+    border-radius: 8px 8px 0 0;
+    color: white;
+    /*padding: 0 8px;*/
+}
+
+.IconWrapper{
+    float: left;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    margin: 8px;
+    background-repeat: round;
+}
+
+.CodeButtonGroup {
+    float: right;
+    margin-left: auto;
+    /*font-size: 10px;*/
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    margin-right: 8px;
+    line-height: 1.54;
+}
+
+/* ------------------ Table ------------------ */
+.TableWrapper {
+    overflow-x: auto;
+    margin: 1rem 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.Table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    background-color: #fff;
+}
+
+.TableHead {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.TableBody {
+    background-color: #fff;
+    color: #333;
+}
+
+.TableRow:hover {
+    background-color: #f9f9f9;
+}
+
+.TableHeaderCell,
+.TableCell {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 0.875rem;
+}
+
+/* responsive label for mobile (data-label) */
+.TableCell[data-label]:before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: none; /* 모바일에서만 보이게 JS/미디어쿼리로 처리 가능 */
+}
+
+/* ------------------ Responsive ------------------ */
+@media (max-width: 768px) {
+    .Table {
+        display: block;
+        width: 100%;
+    }
+
+    .TableRow {
+        display: block;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .TableCell {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .TableCell[data-label]:before {
+        display: inline-block;
+        margin-right: 0.5rem;
+        color: #666;
+    }
+}

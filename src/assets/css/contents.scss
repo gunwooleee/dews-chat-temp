@@ -1,0 +1,1254 @@
+@charset "utf-8";
+/**************************************************
+    컴포넌트 공통
+**************************************************/
+// 버튼
+.DEWSButton{display: flex; flex-direction: row;display: flex; flex-direction: row; min-width: 56px; align-items: center; justify-content: center; white-space: nowrap;gap:4px; min-width: 56px; align-items: center; justify-content: center; white-space: nowrap;gap:4px;
+    padding: 0 12px; height: 32px; font-size: 13px; border-radius: 6px; outline: none; border: solid 1px #d7d9de; background-color: #fff; background-repeat: no-repeat;
+    &:hover, &:active{border-color:#adafb2;}
+    &.disabled{color:#b1b7be !important; border-color:#dfe1e5 !important; cursor: not-allowed;pointer-events: none;
+        &::before{opacity:0.3;}
+    }
+    //블루버튼
+    &.blue{border: none; color: #ffffff; background-color: #5f65ff;
+        &:hover, &:active{background-color: #4248dd;}
+        &.disabled{color:rgba(255, 255, 255, 0.5) !important; background-color:#bec2c9 !important;}
+    }
+    //이미지
+    &.chatPlus::before{content:'';width:18px;height:18px;background: url('../images/ico/ic_chat_plus_outlined_18_bgr_enabled@2x.png') no-repeat center; background-size: 18px;}
+    &.add::before{content:'';width:18px;height:18px;background: url('../images/ico/ic_add_outlined_md_18_bgr_enabled@2x.png') no-repeat center; background-size: 18px;}
+}
+
+// 버튼 그룹 (2개이상 사용 시)
+.DEWSButtonGroup{display: flex; gap:4px;}
+
+// 툴팁
+.DEWSTooltip{position: relative; display: inherit; width: fit-content; max-width: 100%; height: fit-content;
+    .tooltipBox{display: none; position: absolute; width: max-content; max-width: 250px; font-size: 12px; padding: 8px 12px; border-radius: 6px; color:#fff; background-color: #000; box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.08), 0 8px 16px 8px rgba(0, 0, 0, 0.08), 0 6px 12px 0 rgba(0, 0, 0, 0.08); z-index: 1000;line-height:normal;
+        &.top{top: -5px;left: 50%;transform: translate(-50%, -100%);
+            &::after{content: ''; position: absolute; left: 50%; bottom: -4px; transform: translateX(-50%); display: inline-block; width: 0; height: 0; border-top: 5px solid #000; border-left: 5px solid transparent; border-right: 5px solid transparent;}
+        }
+        &.left{top: 50%;left: calc(0% - 10px);transform: translate(-100%, -50%);
+            &::after{content: ''; position: absolute; top: 50%; right: -4px; transform: translateY(-50%); display: inline-block; width: 0; height: 0; border-left: 5px solid #000; border-top: 5px solid transparent; border-bottom: 5px solid transparent;}
+        }
+        &.right{top: 50%;left: calc(100% + 10px);transform: translate(0, -50%);
+            &::after{content: ''; position: absolute; left: -4px; top: 50%; transform: translateY(-50%); display: inline-block; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-right: 5px solid #000;}
+        }
+        &.bottom{top:calc(100% + 5px);left: 50%;transform: translate(-50%, 0%);
+            &::after{content: ''; position: absolute; left: 50%; top: -4px; transform: translateX(-50%); display: inline-block; width: 0; height: 0; border-bottom: 5px solid #000; border-left: 5px solid transparent; border-right: 5px solid transparent;}
+        }
+    }
+    &:hover{
+        .tooltipBox{display:block;}
+    }
+}
+
+// 스낵바
+.DEWSSnackbar{z-index: 9999; position: fixed; bottom: 32px; left: 50%; width: auto; max-width: 800px; font-size: 15px; padding: 13px 20px; border-radius: 10px;background-color: rgba(25, 28, 36, 0.85); box-sizing: border-box; transition: opacity 0.3s ease, transform 0.3s ease;
+    .success{display: inline-block; width: 18px; height: 18px; background: url('../images/ico/ic_toast_check_filled_18@2x.png') no-repeat center center; background-size: 18px;}
+    .warning{display: inline-block; width: 18px; height: 18px; background: url('../images/ico/ic_toast_warning_filled_18@2x.png') no-repeat center center; background-size: 18px;}
+    .error{display: inline-block; width: 18px; height: 18px; background: url('../images/ico/ic_toast_error_filled_18@2x.png') no-repeat center center; background-size: 18px;}
+    .progress{display: inline-block; width: 18px; height: 18px; background: url('../images/ico/ic_toast_progress_filled_18@2x.png') no-repeat center center; background-size: 18px;}
+    .informaiton{display: inline-block; width: 18px; height: 18px; background: url('../images/ico/ic_toast_info_filled_18@2x.png') no-repeat center center; background-size: 18px;}
+    .text{margin-left:10px; line-height: 18px; color: #ffffff;}
+    .btnType01{width: fit-content;height: 30px;padding: 6px 30px 6px 16px;border-radius: 100px;background: rgba(0, 0, 0, 0.3) url('../images/ico/ic_chev_right_outlined_12_bgr_disabled@2x.png') no-repeat center right 12px; background-size: 12px;box-sizing: border-box;font-size: 15px;font-weight: 500;text-align: left;color: #fff;cursor: pointer;}
+}
+
+// 컨텍스트 팝업
+.DEWSContextPop{position:absolute; min-width:72px;border-radius: 12px; box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1); border: solid 1px #e2e4e9; background-color: #fff; box-sizing: border-box; z-index:99;
+    &.center{border-radius: 16px;box-shadow: 0 10px 60px 0 rgba(0, 0, 0, 0.24);}
+    // 기본
+    .contextSel{padding:8px;gap:4px;
+        .selItem{padding:6px 8px;border-radius:6px;cursor: pointer;
+            &:hover{background-color: rgba(0, 0, 0, 0.03);}
+            .txt{font-size: 14px;font-weight: normal;line-height:19px;color:#1d2129 ;
+                &.red{color:#e65364 !important;}
+            }
+        }
+    }
+    // 모델선택 팝업
+    .modelTitle{height:40px;padding:20px 16px 8px 20px;box-sizing: border-box;
+        .tit{font-size:13px;font-weight:bold;letter-spacing:-0.39px;color:#1d2129;}
+    }
+    .contextModelSel{padding:8px 8px 16px 8px;gap:4px;
+        .menuItem{height: 52px;padding: 6px 12px;border-radius: 8px;box-sizing: border-box; cursor: pointer;
+            & > div{gap:12px;}
+            .txt{font-size:14px;font-weight:normal;line-height:19px;letter-spacing:-0.42px;}
+            .subTxt{font-size:12px;font-weight:normal;line-height:18px;letter-spacing:-0.36px;color:#879099;}
+            &:hover {border-radius: 6px; text-decoration: none; background-color: rgba(0, 0, 0, 0.03);}
+        }
+    }
+    // 파일선택
+    .dataFileSel{padding: 0 8px;
+        li {padding: 6px 8px 7px 32px; cursor: pointer; margin-bottom: 4px;font-size:14px;line-height:19px;letter-spacing: -0.42px;
+            &:last-child {margin-bottom: 0;}
+            &.pc {background: url('../images/ico/ic_pc_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+            &.onechamber {background: url('../images/ico/ic_onechamber_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+            &.projectAdd{background: url('../images/ico/ic_project_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;
+                &:hover {border-radius: 6px; text-decoration: none;
+                    background:
+                            url('../images/ico/ic_project_outlined_18_bk_enabled@2x.png') no-repeat left 8px center / 18px,
+                            rgba(0, 0, 0, 0.03) url('../images/ico/ic_chev_right_outlined_14_bgr@2x.png') no-repeat right 8px center / 14px;
+                }
+            }
+            &.roomAdd{background: url('../images/ico/ic_project_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+            &.projectModify{background: url('../images/ico/ic_pencil_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+            &.projectDel{background: url('../images/ico/ic_delete_outlined_18_re_enabled@2x.png') no-repeat left 8px center; background-size: 18px; color:#e65364;}
+            &.projectRemove{background: url('../images/ico/ic_removep_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+            &.titleEdit{background: url('../images/ico/ic_pencil_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+            &.delete{background: url('../images/ico/ic_delete_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+            &:hover {border-radius: 6px; text-decoration: none; background-color: rgba(0, 0, 0, 0.03);}
+        }
+    }
+    // 분석자료
+    .fileListWrap{max-height:425px;
+        .title{height:52px;padding:16px 16px 8px 20px;box-sizing: border-box;gap:4px;
+            .txt{font-size:15px;font-weight:bold;line-height:19px;letter-spacing: -0.45px;color:#1d2129;}
+            .cnt{font-size:15px;font-weight:bold;line-height:19px;letter-spacing: -0.45px;color:#5f65ff;}
+        }
+        .listCon{margin: 0 0 20px 0;padding: 0 12px;
+            li{height: 32px;gap: 8px;padding: 6px 8px;box-sizing: border-box;
+                &:hover {border-radius: 6px;background-color: rgba(0, 0, 0, 0.03);}
+                .txt01{font-size:13px;line-height:19px;letter-spacing: -0.39px;color:#1d2129;}
+                .txt02{font-size:13px;line-height:19px;letter-spacing: -0.39px;color:#1d2129;
+                    .ellipsis{color: #1c90fb;background: #eff7ff;}
+                }
+                .linkTxt{font-size:13px;line-height:19px;letter-spacing: -0.39px;color:#1c90fb;background-color: rgba(28, 144, 251, 0.07);cursor: pointer;}
+                .chkIco{width: 16px; height: 16px;background:transparent url('../images/ico/ic_check_outlined_16_gn_enabled@2x.png') no-repeat center center; background-size: 16px;}
+                .infoIco{width: 16px; height: 16px;background:transparent url('../images/ico/ic_error_outlined_16_re_enabled@2x.png') no-repeat center center; background-size: 16px;}
+                .delBtn{width: 16px; height: 16px;background:transparent url('../images/ico/ic_close_outlined_16_bk_enabled@2x.png') no-repeat center center; background-size: 16px;cursor: pointer;}
+                .previewBtn{width: 16px; height: 16px;background:transparent url('../images/ico/ic_square_search_outlined_16_bk_enabled@2x.png') no-repeat center center; background-size: 16px;cursor: pointer;}
+                &.image{height:fit-content;
+                    &:hover {border-radius:0px;background-color:transparent;}
+                    .imgBox{width: 136px;height: 96px;padding: 0;border-radius: 8px;border: solid 1px transparent;background-color: #fff;box-sizing: border-box;overflow: hidden;
+                        &.blur{
+                            img{-webkit-filter:blur(10px);filter: blur(10px);}
+                        }
+                        img{width:100%;height:100%;}
+                    }
+                    .gap8{gap:8px;}
+                    .loadingBox{position: absolute;inset: 0;bottom: 28px;margin: auto;}
+                }
+            }
+        }
+        .linkInfoText{margin: -4px 0 0 0;padding: 0 20px 2px 20px;font-size: 12px;line-height: 19px;letter-spacing: -0.36px;color: #879099;}
+    }
+}
+
+// 팝업 가운데 포지션
+.popupCenter{position:absolute;top:50%;left:50%; transform:translate(-50%,-50%)}
+
+// 알럿 팝업
+.DEWSAlert{z-index: 999; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); height: auto; padding: 30px; border-radius: 16px; box-sizing: border-box; box-shadow: 0 10px 60px 0 rgba(0, 0, 0, 0.24); background-color: #ffffff; overflow: hidden;
+    .ico{display: inline-block; width: 48px; height: 48px; margin: 0 auto 16px;
+        &.success{background: url('../images/ico/ic_complete_filled_48_gr@2x.png') no-repeat center center; background-size: 48px;}
+        &.warning{background: url('../images/ico/ic_error_triangle_filled_48_ye@2x.png') no-repeat center center; background-size: 48px;}
+        &.error{background: url('../images/ico/ic_fail_filled_48_rd@2x.png') no-repeat center center; background-size: 48px;}
+    }
+    .popCon{gap: 8px;
+        .title{text-align: center; font-size: 17px; font-weight: bold; color: rgba(0, 0, 0, 0.88);}
+        .text{line-height:20px; text-align: center; font-size: 15px; letter-spacing: -0.3px; color:#1d2129;}
+    }
+    .DEWSButtonGroup{margin-top:25px; justify-content: center;}
+}
+
+// 드롭다운리스트 (셀렉트박스)
+.DEWSDropDownList{width: 100%; font-size: 14px; position: relative; display: flex; flex-direction: column; color: rgba(0, 0, 0, 0.88); cursor: pointer; gap: 4px;
+    .selected {
+        display: flex; flex-direction: row; align-items: center; height: 32px; border-radius: 6px; border: solid 1px rgba(175, 185, 204, 0.5); background-color: #fff; box-sizing: border-box; outline: none;
+        background-image: url('../images/ico/ic_chev_down_outlined_14_bk_enabled@2x.png'); background-repeat: no-repeat; background-position:right 12px center; background-size: 16px; padding: 0 9px;
+        &:focus {border-color: #5f65ff;}
+        &:hover{ border-color: rgba(68, 66, 80, 0.4);}
+    }
+    .dropdownList {position: absolute; top: 35px; width: 100%; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16); border: solid 1px rgba(68, 66, 80, 0.16); background-color: #fff; border-radius: 6px; box-sizing: border-box; z-index: 10;  overflow: auto;
+        li {padding: 0 9px; line-height:32px;
+            &:hover {border-radius: 4px; background-color: rgba(0, 0, 0, 0.03);}
+        }
+    }
+    &.disabled{cursor: not-allowed;
+        .selected{border: solid 1px rgba(68, 66, 80, 0.16); background-color: #f7f8fa; color: #b1b7be; background-image: url('../images/ico/ic_chev_down_outlined_14_bk_disabled@2x.png');}
+    }
+}
+
+// 텍스트필드 아이콘
+.DEWSTextFieldIcon{position: relative; width:100%;
+    .DEWSTextField{padding-right: 36px;
+        &.check{padding-right:56px;}
+    }
+    .ico{position: absolute; top: 50%; right: 16px; transform: translateY(-50%); cursor: pointer;
+        &.delete{width: 18px; height: 18px; background: url('../images/ico/ic_delete_circle_filled_18_gr@2x.png') no-repeat center; background-size: 18px;}
+        &.search{width: 24px; height: 24px; background: url('../images/ico/ic_search_outlined_md_24_bgr_enabled@2x.png') no-repeat center; background-size: 24px;}
+        &.check{width: 14px; height: 14px; background: url('../images/ico/ic_check_outlined_14_bk_enabled@2x.png') no-repeat center; background-size: 14px;}
+        &.close{width: 14px; height: 14px; background: url('../images/ico/ic_close_outlined_14_bk_enabled@2x.png') no-repeat center; background-size: 14px;}
+    }
+}
+
+// 텍스트필드
+.DEWSTextField{display:flex; align-items:center; width:100%; font-size: 13px; color: #1d2129;
+    border-radius:8px !important; border: solid 1px #e2e4e9; background-color: #fff; padding: 6px 10px; height:32px; box-sizing: border-box;
+    &::placeholder{color: #b1b7be;}
+    &:focus{border: 1px solid #5f65ff;}
+    &:disabled{border: solid 1px rgba(68, 66, 80, 0.16); background-color: #f7f8fa; color: #b1b7be; cursor:  not-allowed;}
+    &.big{font-size: 15px; padding: 14px 16px 15px 16px; height:49px;}
+}
+
+/**************************************************
+    레이아웃
+**************************************************/
+.commonChat{
+    // 좌측 사이드
+    .leftSide{min-width:fit-content;}
+    // 컨텐츠 (메인화면,프롬프트)
+    .container{position:relative;
+        .modelSel{position: absolute;top: 12px;left: 12px;height: 40px;gap: 4px;padding: 6px 10px 6px 12px;border-radius: 8px;box-sizing: border-box;cursor: pointer;z-index:1;
+            &:hover{border-radius: 8px; text-decoration: none; background-color: rgba(0, 0, 0, 0.03);}
+            .selTxt{font-size:16px;font-weight:bold;line-height:21px;letter-spacing:-0.48px;color:#1d2129;}
+            .toggleArrow{width:12px;height:12px;background:url('../images/ico/ic_chev_down_outlined_12_bgr_enabled@2x.png') no-repeat center;background-size: 12px;
+                &.on{background:url('../images/ico/ic_chev_up_outlined_12_bgr_enabled@2x.png') no-repeat center;background-size: 12px;}
+                &::after{content: ''; position: absolute; top: 50%; left: 1px; transform: translateY(-50%); width: 1px; height: 20px; background-color: #e3e4e5;}
+            }
+            //::after{content: ''; position: absolute; top: 50%; left: 1px; transform: translateY(-50%); width: 1px; height: 20px; background-color: #e3e4e5;}
+            &.disabled{cursor: not-allowed;opacity:0.3;pointer-events: none;}
+        }
+        .viewSell{position: absolute;top: 12px;right: 16px;min-width:max-content;height: 42px;padding: 6px;border-radius: 8px;border: solid 1px #e3e4e5;background-color: #f7f8fa;box-sizing: border-box;z-index:1;
+            .btn{min-width: fit-content;height: 30px;gap: 6px;padding: 5px 14px 5px 12px;border-radius: 6px;box-shadow:none;background-color:transparent;box-sizing: border-box;cursor: pointer;
+                &.on{width: fit-content;height: 30px;gap: 6px;padding: 5px 14px 5px 12px;border-radius: 6px;box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1);background-color: #fff;box-sizing: border-box;
+                    .txt{font-size: 14px;font-weight:bold;line-height: 1.43;letter-spacing: -0.28px;text-align: left;color: #1d2129;}
+                    &.chat{
+                        .ico{min-width:20px;min-height:20px;width:20px;height:20px;background:url('../images/ico/ic_chat_filled_20_on@2x.png') no-repeat center;background-size: 20px;}
+                    }
+                    &.code{
+                        .ico{min-width:20px;min-height:20px;width:20px;height:20px;background:url('../images/ico/ic_code_storage_filled_20_on@2x.png') no-repeat center;background-size: 20px;}
+                    }
+                }
+                .txt{font-size: 14px;font-weight: 500;line-height: 1.43;letter-spacing: -0.28px;text-align: left;color: #b1b7be;}
+                &.chat{
+                    .ico{min-width:20px;min-height:20px;width:20px;height:20px;background:url('../images/ico/ic_chat_filled_20_off@2x.png') no-repeat center;background-size: 20px;}
+                }
+                &.code{
+                    .ico{min-width:20px;min-height:20px;width:20px;height:20px;background:url('../images/ico/ic_code_storage_filled_20_off@2x.png') no-repeat center;background-size: 20px;}
+                }
+            }
+        }
+        .foldingWrap{position: absolute;top: 12px;left: 12px;z-index:1;
+            .btnIco{width: 40px; height: 40px;border-radius: 8px;border:1px solid transparent;box-sizing: border-box;
+                &.folding{background:transparent url('../images/ico/ic_menu_outlined_md_24_bgr_enabled@2x.png') no-repeat center center; background-size: 24px; cursor: pointer;
+                    &:hover{background: rgba(0, 0, 0, 0.03) url('../images/ico/ic_menu_outlined_md_24_bgr_enabled@2x.png') no-repeat center center; background-size: 24px;}
+                }
+            }
+        }
+    }
+    // 블러 딤
+    .blurDim{position:absolute;inset:0;-webkit-backdrop-filter: blur(10px);backdrop-filter: blur(10px);background-color: rgba(255, 255, 255, 0.6);z-index:1;}
+}
+
+// 엠티셋
+.emptySet{align-items: center; display: flex; justify-content: center;
+    img{width:64px;height:64px;margin:0 0 4px 0;}
+    .bText{font-size: 14px; font-weight: bold; letter-spacing: -0.28px;}
+    .sText{letter-spacing: -0.24px; color: #879099; margin-top:5px;}
+}
+
+/**************************************************
+    LNB
+**************************************************/
+.lnbSidePanel{position: relative; padding:8px 12px 0 12px; width:280px; border-right: solid 1px #e6e6e6; background-color: #f6f7fc; box-sizing: border-box;
+    // 헤더
+    .header{
+        .btnIco{width: 40px; height: 40px;border-radius: 8px; border:1px solid transparent; box-sizing: border-box; cursor: pointer; background-repeat:no-repeat; background-position:center; background-size: 24px; background-color:transparent;
+            &.search{background-image:url('../images/ico/ic_time_search_outlined_md_24_bgr_enabled@2x.png');
+                &:hover{background-color: rgba(0, 0, 0, 0.06); }
+                &.on{border: solid 1px rgba(0, 0, 0, 0.12); background-color: rgba(0, 0, 0, 0.06);}
+            }
+            &.setting{background-image: url('../images/ico/ic_setting_outlined_md_24_bgr_enabled@2x.png');
+                &:hover{background-color: rgba(0, 0, 0, 0.06);}
+                &.on{border: solid 1px rgba(0, 0, 0, 0.12); background-color: rgba(0, 0, 0, 0.06);}
+            }
+            &.folding{background-image: url('../images/ico/ic_menu_outlined_md_24_bgr_enabled@2x.png');
+                &:hover{background-color: rgba(0, 0, 0, 0.06);}
+            }
+        }
+    }
+
+    // 새대화 버튼
+    .btnChatNew{margin:8px 0 0 0;
+        .DEWSButton{width: 100%; height:40px;}
+    }
+
+    // 타이틀 공통
+    .titleBox{display:flex; align-items:center; height:39px; margin:0 10px;
+        .title{ font-size: 14px; font-weight: bold; letter-spacing: -0.28px; margin:0 6px 0 0;
+            &.faq{background:url('../images/ico/ic_info_outlined_md_18_bgr_enabled@2x.png') no-repeat left center / 18px; padding-left:24px; cursor: pointer;}
+        }
+        .addBtn{width:18px; height:18px; background:url('../images/ico/ic_add_outlined_md_18_bgr_enabled@2x.png') no-repeat center / 18px; cursor: pointer;}
+    }
+
+    .lnbConBox{margin:24px 0 20px 0; overflow: auto; padding:0 2px;
+        // 프로젝트
+        .projectCon{
+            .listItem{margin:8px 0 0 0;
+                dl{
+                    &:last-child{margin:0 0 16px 0;}
+                    dd{display:flex; align-items: center; font-size: 13px; letter-spacing: -0.26px;cursor: pointer;min-height:32px;
+                        .text{padding:0 10px; line-height: 32px;}
+                        &:hover, &.on{border-radius: 8px; background-color: rgba(0, 0, 0, 0.06);
+                            .moreBtn{width:18px; height:18px; background:url('../images/ico/ic_more_outlined_18_gr_enabled@2x.png') no-repeat center / 18px; cursor: pointer;}
+                        }
+                        &.pj{background:url('../images/ico/ic_project_outlined_md_20_bgr_enabled@2x.png') no-repeat left 10px center / 20px; padding:0 10px 0 36px;
+                            .text{padding:0;}
+                            &:hover{border-radius: 8px; background-color: rgba(0, 0, 0, 0.06);}
+                            &.on{background:rgba(0, 0, 0, 0.06) url('../images/ico/ic_projectopen_outlined_md_20_bgr_enabled@2x.png') no-repeat left 10px center / 20px;}
+                        }
+                        &.edit{padding:0 10px !important;background:none !important;}
+                    }
+                }
+            }
+            .more{min-height:32px;line-height:32px;padding:0 10px 0 36px; letter-spacing: -0.26px; font-size: 13px;cursor: pointer;
+                &.up{background:url('../images/ico/ic_chev_up_outlined_20_bgr@2x.png') no-repeat left 10px center / 20px;}
+                &.down{background:url('../images/ico/ic_chev_down_outlined_20_bgr@2x.png') no-repeat left 10px center / 20px;}
+            }
+        }
+        //히스토리
+        .historyCon{margin:20px 0 0 0;
+            .DEWSTextField{border-radius:6px !important;}
+            .listItem{margin:8px 0 0 0;
+                dl{margin:0 0 16px 0;
+                    &:last-child{margin:0px;}
+                    dt{line-height:20px; color:#879099; letter-spacing: -0.24px; padding:0 10px 4px 10px;}
+                    dd{display:flex; align-items: center; font-size: 13px; letter-spacing: -0.26px;cursor: pointer;
+                        .text{padding:0 10px; line-height: 32px;}
+                        &:hover, &.on{border-radius: 8px; background-color: rgba(0, 0, 0, 0.06);
+                            .moreBtn{width:18px; height:18px; background:url('../images/ico/ic_more_outlined_18_gr_enabled@2x.png') no-repeat right 8px center / 18px; cursor: pointer;}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 검색팝업
+.searchPop{
+    .searchBox{display: flex; align-items: center; margin:5px 24px 0 24px; border-bottom:1px solid #e3e4e5; height: 67px; box-sizing: border-box;
+        .DEWSTextFieldIcon{
+            .DEWSTextField{border:none; font-size: 16px; padding-left:0px;}
+            .ico{right:2px;}
+        }
+    }
+    .searchList{padding:0 12px 12px 12px;
+        .title{font-size: 14px; font-weight: bold; letter-spacing: -0.28px; margin:0 0 0 10px;}
+        .NewChat{display: flex; align-items: center; margin:16px 0 12px 0; line-height: 44px; font-size: 14px; letter-spacing: -0.28px; padding-left:38px;
+            background-image:url('../images/ico/ic_chat_plus_filled_18_enabled@2x.png'); background-repeat: no-repeat; background-position: left 12px center; background-size:18px;
+            &:hover{border-radius: 6px; background-color: rgba(0, 0, 0, 0.03); cursor: pointer;}
+        }
+        .ListBox{display:flex; gap:8px; overflow: auto;
+            dl{
+                dt{line-height:20px; font-weight: bold; color: #879099; letter-spacing: -0.24px; padding:0 0 0 10px;}
+                dd{line-height: 44px; font-size: 13px;letter-spacing: -0.26px; cursor: pointer; padding-left:38px;
+                    background-image:url('../images/ico/ic_chat_line_outlined_18_bk_enabled@2x.png'); background-repeat: no-repeat; background-position: left 12px center; background-size:18px;
+                    &:hover{border-radius: 6px; background-color: rgba(0, 0, 0, 0.03);}
+                }
+            }
+            ul{
+                li{line-height: 44px; font-size: 13px;letter-spacing: -0.26px; cursor: pointer; padding-left:38px;
+                    background-image:url('../images/ico/ic_project_outlined_md_20_bgr_enabled@2x.png'); background-repeat: no-repeat; background-position: left 12px center; background-size:20px;
+                    &:hover{border-radius: 6px; background-color: rgba(0, 0, 0, 0.03);}
+                }
+            }
+        }
+    }
+}
+
+//시스템 설정 팝업
+.promptPop{
+    .title{height: 80px;padding: 19px 20px 18px;box-sizing: border-box; border-bottom: solid 1px #e2e4e9; box-sizing: border-box;
+        .tit{font-size: 16px;font-weight: bold;line-height: 23px;letter-spacing: -0.48px;}
+        .txt{line-height: 18px;letter-spacing: -0.36px;color: #879099;}
+    }
+    .con{padding:0 20px;
+        .conTitle{font-size: 13px;font-weight: bold;line-height: 20px;letter-spacing: -0.26px;}
+        .tit{margin:12px 0 2px 0;padding:5px 0 6px 0;
+            .txt{font-size: 14px; line-height: 21px;letter-spacing: -0.42px;}
+            .info{margin:-2px 0 0 4px; width:16px; height:16px; background: url('../images/ico/ic_info_circle_outlined_16_bgr_enabled@2x.png') no-repeat center / 16px;}
+        }
+    }
+    .btns{gap:8px;
+        .btnIco{width: 32px !important; height: 32px !important;border-radius: 8px;border:1px solid transparent;box-sizing: border-box;
+            &.reset{background:transparent url('../images/ico/ic_refresh_outlined_md_24_bgr_enabled@2x.png') no-repeat center center; background-size: 24px; cursor: pointer;
+                &:hover{background: rgba(0, 0, 0, 0.06) url('../images/ico/ic_refresh_outlined_md_24_bgr_enabled@2x.png') no-repeat center center; background-size: 24px;}
+            }
+            &.close{background:transparent url('../images/ico/ic_close_outlined_md_24_bgr_enabled@2x.png') no-repeat center center; background-size: 24px; cursor: pointer;
+                &:hover{background: rgba(0, 0, 0, 0.06) url('../images/ico/ic_close_outlined_md_24_bgr_enabled@2x.png') no-repeat center center; background-size: 24px;}
+            }
+        }
+    }
+    .DEWSButtonGroup{margin:20px 0;}
+}
+
+
+/**************************************************
+    메인챗 / 프로젝트챗
+**************************************************/
+.mainChat{margin: 0 auto;padding: 0 165px;min-width:500px;height:100%;
+    // 로고영역
+    .infoBox{padding:40px 0;min-height:fit-content;
+        .genAiDewsLogo{width:384px;height:160px;background:url('../images/temp/lg@2x.png') no-repeat center;background-size:384px 160px;}
+        .folder{width:60px;height:60px;background:url('../images/ico/ic_aimenu_move_filled_40_enabled@2x.png') no-repeat center;background-size:60px;}
+        .title{margin:16px 0 0 0;font-size: 24px;font-weight: bold;letter-spacing: -0.48px;text-align: center;color: #000;}
+    }
+    // 작성창 //width: 100%;max-width: 800px; //margin-left: min(800px, 25%); margin-right: min(800px, 25%);
+    .genAiDewsTextBox{position:relative;padding:16px 16px 0 16px;width:100%;min-height:fit-content;border: 1px solid #e2e4e9;border-radius: 20px;box-sizing: border-box;z-index:3;
+
+        &.on{
+            border: 1px solid transparent;
+            background-image: linear-gradient(#fff, #fff), linear-gradient(95deg, #2b9dff -19%, #7f6eff 63%, #e557ff);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+        &.dragOn{
+            border: 1px dashed #ffffff;
+            background-image: linear-gradient(#fff, #fff), linear-gradient(95deg, #2b9dff -19%, #7f6eff 63%, #e557ff);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            box-shadow: 0 4px 30px 0 rgba(95, 101, 255, 0.08);
+        }
+        &.disabled{border: 1px solid #f0f2f5;background-color:#f0f2f5;}
+        textarea{width: 100%;min-height: 48px;height: fit-content;max-height: 100px;padding:0;border:none;outline: none;resize: none;overflow: auto;overflow-wrap: break-word;font-size: 15px;line-height: 20px;letter-spacing: -0.3px;color: #1d2129;scrollbar-width: none;
+            &::placeholder {font-size: 15px;line-height: 20px; color : #b1b7be;}
+            &:disabled {background-color:#f0f2f5;}
+        }
+        // 드래그 앤 드롭
+        .dragBox{height:98px;
+            .txt{margin:8px 0 0 0;font-size:14px;font-weight:bold;line-height:20px;letter-spacing:-0.42px;color:#414a59;}
+        }
+        // 작성창 첨부파일
+        .fileListBox{position:relative;flex-wrap: nowrap;gap:8px;margin:0 0 16px 0;padding:0 20px 0 0;
+            &::after{content:'';position:absolute;top:-3px;right:0;width:80px;height:64px;background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #fff 100%);z-index:1;}
+            .fileItem{position:relative;gap: 8px;padding: 8px 12px;width:224px;height:54px;border-radius: 12px;border: solid 1px #e9ebf2;background-color: #fff;box-sizing: border-box;
+                .icon{width:32px;height:32px;
+                    &.pdf{border-radius:6px;background-image: linear-gradient(138deg, #ffa3a3 13%, #f45f5f 95%);}
+                    &.ppt{border-radius:6px;background-image: linear-gradient(138deg, #ffaf99 13%, #e66644 95%);}
+                    &.xls{border-radius:6px;background-image: linear-gradient(138deg, #80dfad 13%, #29a362 95%);}
+                    &.onex{border-radius:6px;background-image: linear-gradient(134deg, #8fc7ff 15%, #409fff 100%);}
+                    &.ones{border-radius:6px;background-image: linear-gradient(138deg, #ff9483 13%, #f7573e 95%);}
+                    &.hwp{border-radius:6px;background-image: linear-gradient(138deg, #80caff 13%, #31a4f5 95%);}
+                    &.doc{border-radius:6px;background-image: linear-gradient(138deg, #94c5ff 13%, #5396e5 95%);}
+                    &.html{border-radius:6px;background-image: linear-gradient(138deg, #95dede 13%, #34c7c7 95%);}
+                    &.txt{border-radius:6px;background-image: linear-gradient(138deg, #d1d1d1 13%, #9e9e9e 95%);}
+                    &.csv{border-radius:6px;background-image: linear-gradient(138deg, #aee7b0 13%, #29a32d 95%);}
+                    &.etc{border-radius:6px;background-image: linear-gradient(139deg, #c6cbe3 17%, #8189c3 86%);}
+                    &.img{border-radius:6px;background-image: linear-gradient(138deg, #ffd96a 13%, #f3b52e 95%);}
+                }
+                .txt01{font-size:13px;font-weight:bold;line-height:19px;letter-spacing:-0.26px;color:#1d2129;}
+                .txt02{font-size:12px;font-weight:normal;line-height:18px;letter-spacing:-0.24px;color:#414a59;}
+                .txt03{font-size:13px;font-weight:bold;line-height:19px;letter-spacing:-0.26px;color:#1d2129;
+                    .ellipsis{color: #1c90fb;background: #eff7ff;}
+                }
+            }
+            .imageItem{position:relative;border-radius: 12px;width:54px;height:54px;border: solid 1px transparent;background-color: #fff;box-sizing: border-box;
+                .img{width:54px;height:54px;border-radius: 12px;overflow:hidden;}
+            }
+            .deleteBtn{position: absolute;top:-8px;right:-8px;width:20px;height:20px;background:url('../images/ico/ic_close_circle_filled_20_bk_enabled@2x.png') no-repeat center;background-size:20px;z-index:1;cursor: pointer;
+                &:hover{background:url('../images/ico/ic_close_circle_filled_20_bk_hover@2x.png') no-repeat center;background-size:20px;}
+                &:active{background:url('../images/ico/ic_close_circle_filled_20_bk_hover@2x.png') no-repeat center;background-size:20px;}
+            }
+            .moreBtn{position: absolute;top:11px;right:0;width: 32px;height: 32px;padding: 4px;border-radius: 6px;border: solid 1px #d7d9de;background: #fff url('../images/ico/ic_more_horizontal_outlined_24_bgr_enabled@2x.png') no-repeat center;background-size:24px;box-sizing: border-box;z-index:3;cursor: pointer;
+                &:hover{border: solid 1px rgba(29, 33, 41, 0.5);}
+                &:active{border: solid 1px rgba(29, 33, 41, 0.5);}
+            }
+        }
+        // 작성창 하단 버튼영역
+        .subFnBtns{margin:8px 0 16px 0;
+            &.disabled{
+                .fnBtn{cursor: not-allowed;
+                    &.add{background:transparent url('../images/ico/ic_attach_outlined_md_18_bk_disabled@2x.png') no-repeat center center; background-size: 18px;
+                        &:hover{background-color:transparent;}
+                    }
+                }
+            }
+            .fnBtn{width: 32px; height: 32px;padding: 5px;border-radius: 6px;box-sizing: border-box; cursor: pointer;
+                &.add{background:transparent url('../images/ico/ic_attach_outlined_md_18_bk_enabled@2x.png') no-repeat center center; background-size: 18px;
+                    &:hover{background-color: rgba(0, 0, 0, 0.03);}
+                }
+            }
+        }
+        // 보내기 버튼
+        .sendBtn{margin:0 0 16px 0;width:32px;height:32px;background:url('../images/ico/btn_send_disabled@2x.png') no-repeat center;background-size:32px;z-index:11;cursor: pointer;
+            &.on{background:url('../images/ico/btn_send_enabled@2x.png') no-repeat center;background-size:32px;}
+            &.on:hover{background:url('../images/ico/btn_send_hover@2x.png') no-repeat center;background-size:32px;}
+        }
+        // 생성중지 버튼
+        .stopBtn{margin:0 0 16px 0;width:32px;height:32px;background:url('../images/ico/btn_pause_enabled@2x.png') no-repeat center;background-size:32px;z-index:1;cursor: pointer;
+            &:hover{background:url('../images/ico/btn_pause_hover@2x.png') no-repeat center;background-size:32px;}
+            &.disabled{background:url('../images/ico/btn_pause_disabled@2x.png') no-repeat center;background-size:32px;cursor: not-allowed;}
+        }
+        // '...' 로딩박스
+        .aiBtnLoading{margin:0 0 16px 0;width:32px;height:32px;z-index:1;}
+    }
+    // 답변 후 자료분석
+    .promptFileList{position:relative;margin:0 0 10px 0;gap:6px;
+        .fileCon{gap:6px;flex-wrap:wrap;
+            .fileItem{height: 36px;gap: 4px;padding: 8px 12px;border-radius: 8px;border: solid 1px #d7d9de;background-color: #ffffff;box-sizing: border-box;cursor: pointer;
+                .txt{font-size:12px;line-height:20px;letter-spacing:-0.36px;color:#1d2129;}
+                &:hover{border: solid 1px rgba(29, 33, 41, 0.5);}
+                &:active{border: solid 1px rgba(29, 33, 41, 0.5);}
+                .chkIco{width: 16px; height: 16px;background:transparent url('../images/ico/ic_check_outlined_16_gn_enabled@2x.png') no-repeat center center; background-size: 16px;}
+                .infoIco{width: 16px; height: 16px;background:transparent url('../images/ico/ic_error_outlined_16_re_enabled@2x.png') no-repeat center center; background-size: 16px;}
+                .delBtn{margin:0 0 0 4px;width: 16px; height: 16px;background:transparent url('../images/ico/ic_close_outlined_16_bk_enabled@2x.png') no-repeat center center; background-size: 16px;cursor: pointer;}
+                .previewBtn{width: 16px; height: 16px;background:transparent url('../images/ico/ic_square_search_outlined_16_bk_enabled@2x.png') no-repeat center center; background-size: 16px;cursor: pointer;}
+            }
+        }
+        .moreBtn{width: 36px;height: 36px;padding: 6px;border-radius: 8px;border: solid 1px #d7d9de;background: #fff url('../images/ico/ic_more_horizontal_outlined_24_bgr_enabled@2x.png') no-repeat center;background-size:24px;box-sizing: border-box;cursor: pointer;
+            &:hover{border: solid 1px rgba(29, 33, 41, 0.5);}
+            &:active{border: solid 1px rgba(29, 33, 41, 0.5);}
+        }
+    }
+    // 추천 프롬프트
+    .promptBox{margin:36px 0 0 0;width:100%;max-width:950px;
+        .title{min-height:36px;height:fit-content;font-size:16px;font-weight:bold;letter-spacing:-0.48px;color:#1d2129;}
+        .promptList{margin:12px 0 0 0;
+            .prompt{padding:14px 12px;min-height:48px;height:fit-content;border-radius: 8px;box-sizing: border-box;cursor: pointer;gap:6px;
+                &:hover{background-color: rgba(0, 0, 0, 0.03);}
+                .txt{font-size:15px;line-height:20px;letter-spacing:-0.45px;color:#1d2129;}
+            }
+        }
+    }
+    // 이 프로젝트 내 채팅
+    .projectMyChat{margin:36px 0 0 0;width:100%;
+        .title{margin:0 0 0 12px;min-height:20px;height:fit-content;font-size: 12px;font-weight: bold;line-height: 20px;letter-spacing: -0.24px;text-align: left;color: #879099;}
+        .projectChatList{margin:12px 0 0 0;
+            .chatItem{position:relative;padding:0 11px;min-height:44px;height:fit-content;border-radius: 8px;box-sizing: border-box;cursor: pointer;gap:6px;
+                &:hover{background-color: rgba(0, 0, 0, 0.03);
+                    .date{visibility: hidden;}
+                    .moreBtn{width:18px; height:18px; background:url('../images/ico/ic_more_outlined_18_gr_enabled@2x.png') no-repeat center / 18px; cursor: pointer;}
+                }
+                .txt{font-size:14px;line-height:20px;letter-spacing:-0.42px;color:#1d2129;}
+                .date{font-size:12px;line-height:16px;letter-spacing:-0.36px;color:#879099;}
+            }
+        }
+        .projectChatEmpty{height: 134px;align-self: stretch;flex-grow: 0;display: flex;flex-direction: column;justify-content: flex-start;align-items: center;gap: 4px;margin:12px 0 0 0;padding: 20px 0 28px;border-radius: 10px;background-color: #f7f8fa;box-sizing: border-box;
+            .emptyText{font-size: 14px;font-weight: normal;line-height: 18px;letter-spacing: -0.28px;text-align: center;color: #879099;}
+        }
+    }
+    // 답변 padding:0 0 16px 0;
+    .chatBox{position:relative; margin:70px 0 0 0;
+        //&::after{content:'';position:absolute;bottom:0;width:100%;height:40px;background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);}
+        //chatMessageWrap : margin:0 0 20px 0;
+        .chatMessageWrap{gap: 10px;padding:0 0 20px 0;
+            &.user{position: relative;justify-content:end;align-items:end;
+                .chatMessage{width:fit-content;padding:12px 16px;border-radius: 16px 16px 0 16px;background:#e3e7ff;box-sizing: border-box;max-width:686px;
+                    .message{font-size:15px;line-height:normal;letter-spacing:-0.3px;color:#1d2129;}
+                }
+            }
+            &.ai{position: relative;align-items:start;
+                .aiProfile{width: 140px; height: 28px; background: url('../images/temp/logo_genai_28_bk_enabled@2x.png') no-repeat center center; background-size: 140px 28px;}
+                .chatMessage{width:fit-content;box-sizing: border-box;
+                    .message{font-size:15px;line-height:24px;letter-spacing:-0.3px;color: #1d2129;
+                        .list{
+                            li{position:relative;padding:0 0 0 20px;
+                                &::before{content: "";position: absolute;width: 4px;height: 4px;top: 10px;left: 5px;border-radius: 4px;background-color: #1d2129;}
+                            }
+                        }
+                        .aiInfoTxt{margin:12px 0 0 0;gap:4px;font-size:13px;min-height:19px;line-height:19px;letter-spacing:-0.39px;color:#879099;
+                            img{margin:2px 0 0 0;}
+                        }
+                    }
+                }
+            }
+            .chatBtn{gap: 4px;margin:6px 0 0 0;
+                .btnIco{width: 28px; height: 28px;padding: 5px;border-radius: 6px;box-sizing: border-box;
+                    &.copy{background:transparent url('../images/ico/ic_squares_outlined_md_18_bgr_enabled@2x.png') no-repeat center center; background-size: 18px; cursor: pointer;}
+                    &.delete{background:transparent url('../images/ico/ic_delete_outlined_18_bgr_enabled@2x.png') no-repeat center center; background-size: 18px; cursor: pointer;}
+                    &.modify{background:transparent url('../images/ico/ic_pencil_outlined_18_bk_enabled@2x.png') no-repeat center center; background-size: 18px; cursor: pointer;}
+                    &:hover{background-color: rgba(0, 0, 0, 0.03);}
+                }
+                .btnTxt{height: 36px;gap: 4px;padding: 8px 12px 8px 10px;border-radius: 8px;border: solid 1px #d7d9de;background-color: #fff;box-sizing: border-box;cursor: pointer;
+                    .txt{font-size:12px;font-weight:normal;line-height:20px;letter-spacing:-0.36px;color:#1d2129;}
+                    .cnt{font-size:12px;font-weight:bold;letter-spacing:-0.42px;color:#5f65ff;}
+                    &:hover{border:1px solid #adafb2;}
+                    &:active{border:1px solid #adafb2;}
+                }
+                .line{margin:0 4px;width: 1px;height: 14px;background-color: #d7d9de;}
+            }
+        }
+    }
+    // 하단 문구
+    .footText{margin:14px 0 16px 0;font-size:12px;font-weight:normal;line-height:18px;letter-spacing:-0.24px;color:#879099;}
+
+    // 마크다운 아이콘 텍스트
+    .markdownText{display: flex; align-items: center; font-size: 13px; letter-spacing: -0.39px; color: #fff; gap:16px;line-height: 20px; width: max-content; margin: 0 16px 0 0;
+        img{margin:0 4px 0 0;}
+    }
+}
+
+/**************************************************
+    프로젝트챗
+**************************************************/
+// 프로젝트 채팅 생성 팝업
+.projectChatPop{padding:0 20px 32px 20px;box-sizing: border-box;
+    .titleBox{height:72px;padding:16px 0;box-sizing: border-box;
+        .tit{padding:0 0 0 28px;height:24px;font-size: 17px;font-weight: bold;line-height: 24px;letter-spacing: -0.34px;text-align: left;color: #1d2129;background:url('../images/ico/ic_projectchat_outlined_24@2x.png') no-repeat left;background-size:24px;box-sizing: border-box;}
+        .closeBtn{width:24px;height:24px;background:url('../images/ico/ic_close_outlined_md_24_bgr_enabled@2x.png') no-repeat left;background-size:24px;cursor: pointer;}
+    }
+    .infoBox{margin:20px 0 31px 0;gap: 12px;padding: 12px;border-radius: 8px;background-color: rgba(0, 0, 0, 0.03);
+        .txt01{font-size: 14px;line-height:19px;letter-spacing: -0.28px;text-align: left;color: #1d2129;}
+        .txt02{font-size: 12px;line-height:18px;letter-spacing: -0.24px;text-align: left;color: #879099;}
+    }
+}
+
+/**************************************************
+    코드보관함
+**************************************************/
+.codeArchive{position: relative;margin: 0 auto;padding: 0 165px;min-width:500px;max-width: 950px;
+    .title{margin:120px 0 0 0;font-size:32px;font-weight:bold;text-align:center;letter-spacing:-0.64px;color:#000000;}
+    .textStickyBox{position: sticky;top: 0;padding: 40px 0;background-color: #fff;z-index:1;}
+    .codeList{gap:8px;padding:0 0 40px 0;
+        .listItem{min-height: 44px;gap: 8px;padding: 0 16px;border-radius: 8px;background-color: #f7f8fa;box-sizing: border-box;
+            &:hover{background-color:#f0f1f3;
+                .infoBox{
+                    .btns{visibility:visible;gap: 8px;}
+                }
+            }
+            .infoBox{height:44px;gap: 8px;
+                .category{width:max-content;height:24px;padding:0 0 0 28px;font-size: 13px;font-weight: bold;line-height: 24px;letter-spacing: normal;text-align: left;color: #000;
+                    &.html{background:url('../images/ico/ic_html_filled_24@2x.png') no-repeat left;background-size:24px;}
+                    &.css{background:url('../images/ico/ic_css_filled_24@2x.png') no-repeat left;background-size:24px;}
+                    &.javascript{background:url('../images/ico/ic_javascript@2x.png') no-repeat left;background-size:24px;}
+                    &.jsx{background:url('../images/ico/ic_javascript@2x.png') no-repeat left;background-size:24px;}
+                    &.js{background:url('../images/ico/ic_javascript@2x.png') no-repeat left;background-size:24px;}
+                    &.python{background:url('../images/ico/ic_python_filled_24@2x.png') no-repeat left;background-size:24px;}
+                    &.java{background:url('../images/ico/ic_java_filled_24@2x.png') no-repeat left;background-size:24px;}
+                    &.json{background:url('../images/ico/ic_json_filled_24@2x.png') no-repeat left;background-size:24px;}
+                    &.typescript{background:url('../images/ico/ic_typescript_filled_24@2x.png') no-repeat left;background-size:24px;}
+                    &.tsx{background:url('../images/ico/ic_typescript_filled_24@2x.png') no-repeat left;background-size:24px;}
+                    &.sql{background:url('../images/ico/ic_sql_filled_24@2x.png') no-repeat left;background-size:24px;}
+                    &.xml{background:url('../images/ico/ic_xml_filled_24@2x.png') no-repeat left;background-size:24px;}
+                    &.vue{background:url('../images/ico/ic-vue-filled-24@2x.png') no-repeat left;background-size:24px;}
+                    &.md{background:url('../images/ico/ic-md-filled-24@3x.png') no-repeat left;background-size:24px;}
+                    &.markdown{background:url('../images/ico/ic-md-filled-24@3x.png') no-repeat left;background-size:24px;}
+                }
+                .line{width: 1px;height: 14px;background-color: #d7d9de;}
+                .txt{font-size: 14px;line-height: 1.43;letter-spacing: -0.42px;text-align: left;color: #1d2129;}
+                .date{font-size: 12px;line-height: 16px;letter-spacing: -0.36px;text-align: left;color: #879099;}
+                .arrow{width:14px;height:14px;cursor: pointer;
+                    &.up{background:url('../images/ico/ic_chev_up_outlined_14_bk_enabled@2x.png') no-repeat center;background-size:14px;}
+                    &.down{background:url('../images/ico/ic_chev_down_outlined_14_bk_enabled@2x.png') no-repeat center;background-size:14px;}
+                }
+                .btns{visibility:hidden;gap: 8px;
+                    &.hidden{visibility:hidden;}
+                }
+            }
+            .codeBox{padding:0 0 16px 0;}
+        }
+    }
+    .emptySet{margin:130px 0 0 0;}
+}
+
+/**************************************************
+    FAQ
+**************************************************/
+.faqWrap{position: relative; width: 100%; min-height:100%;height: max-content;
+    .logo{width: 160px; height: 32px; cursor: pointer;}
+    .topWrap{position: relative; width: 100%; height: 418px; background: url('../images/bg/img_kv@2x.png') no-repeat center; background-size: 1920px 418px;
+        .box{position: absolute; top: 10px; bottom: 0; left: 50%; transform: translateX(-50%); width: 1200px;
+            .textBox{position: absolute; top: 50%; transform: translateY(-50%);
+                .title{font-size: 48px; font-weight: bold; color: #ffffff; text-shadow: 0 8px 10px #8baed9;}
+                .text{margin-top: 12px; font-size: 18px; color: #ffffff; text-shadow: 0 2px 8px #8baed9;}
+            }
+        }
+    }
+    .conWrap{width: 1200px; padding: 40px 0 140px 0; margin: 0 auto; box-sizing: border-box;
+        .tabs{padding-bottom: 24px; gap: 20px;
+            .tab{font-size: 20px; font-weight: bold; letter-spacing: -0.6px; color: #c3c6cb; cursor: pointer;
+                &.on{color: #1d2129;}
+            }
+        }
+        .conList{height: fit-content; border-top: 1px solid #000000;
+            dl{border-bottom: 1px solid #e2e4e9; box-sizing: border-box;
+                dt{display: flex; align-items: center; padding: 20px; font-size: 16px; font-weight: bold; letter-spacing: -0.16px; color: #1d2129; background-repeat: no-repeat; background-position: right 20px center; background-size: 20px; cursor: pointer;
+                    &::before{content: 'Q.'; margin-right: 10px; font-size: 20px; font-weight: bold; letter-spacing: -0.6px; color: #5f65ff;}
+                    &.up{background-image: url('../images/ico/ic_chev_up_outlined_18_bk_enabled@3x.png');}
+                    &.down{background-image: url('../images/ico/ic_chev_down_outlined_18_bk_enabled@3x.png');}
+                }
+                dd{display: flex; flex-direction: column; gap: 10px; padding: 20px 50px; font-size: 16px; line-height: 1.63; letter-spacing: -0.16px; color: #1d2129; background-color: rgba(246, 247, 252, 0.6);
+                    ol{padding-left: 22px;}
+                    ul{padding-left: 30px;}
+                    li{list-style: inherit;}
+                    span{display: inline-block; color: #879099;}
+                }
+            }
+        }
+    }
+}
+
+
+/******************************************************************************************************************************************************************************************
+    다크 테마
+******************************************************************************************************************************************************************************************/
+.commonChat.darkTheme{
+    /**************************************************
+        컴포넌트 공통
+    **************************************************/
+    // 버튼
+    .DEWSButton{color:#ffffff;border: solid 1px #7e8185; background-color: #36383a;
+        &:hover, &:active{border-color:#a0a4a8;}
+        &.disabled{color:rgba(255,255,255,0.3) !important; border-color:#494a4d !important;}
+        //블루버튼
+        &.blue{border: none; color: #ffffff; background-color: #5f65ff;
+            &:hover, &:active{background-color: #4248dd;}
+            &.disabled{color: rgb(230, 230, 230, 0.5) !important;background-color: #4d4e52 !important;}
+        }
+        //이미지
+        &.chatPlus::before{background-image: url('../images/dark/ic_chat_plus_outlined_18_bgr_enabled@2x.png');}
+        &.add::before{background: url('../images/dark/ic_add_outlined_md_18_bgr_enabled@2x.png');}
+
+        &.chatPlus{border: solid 1px #4c4c4c;background-color: #3e4145;}
+    }
+
+    // 스낵바
+    .DEWSSnackbar{background-color:rgba(12, 12, 13, 0.85);
+        .success{background: url('../images/dark/ic_toast_check_filled_18@2x.png') no-repeat center center; background-size: 18px;}
+        .warning{background: url('../images/dark/ic_toast_warning_filled_18@2x.png') no-repeat center center; background-size: 18px;}
+        .error{background: url('../images/dark/ic_toast_error_filled_18@2x.png') no-repeat center center; background-size: 18px;}
+        .progress{background: url('../images/dark/ic_toast_progress_filled_18@2x.png') no-repeat center center; background-size: 18px;}
+        .informaiton{background: url('../images/dark/ic_toast_info_filled_18@2x.png') no-repeat center center; background-size: 18px;}
+        .text{color: #ffffff;}
+        .btnType01{background: #292929 url('../images/dark/ic_chev_right_outlined_12_bgr_disabled_disabled@2x.png') no-repeat center right 12px; background-size: 12px;color: #fff;}
+    }
+
+    // 컨텍스트 팝업
+    .DEWSContextPop{box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1); border: solid 1px rgba(240, 242, 244, 0.1);  background-color: #36383a;
+        &.center{box-shadow: 0 10px 60px 0 rgba(0, 0, 0, 0.24);}
+        // 기본
+        .contextSel{
+            .selItem{
+                &:hover{background-color: rgba(255, 255, 255, 0.04);}
+                .txt{color:#ffffff ;
+                    &.red{color:#e65364 !important;}
+                }
+            }
+        }
+        // 모델선택 팝업
+        .modelTitle{
+            .tit{color:#ffffff;}
+        }
+        .contextModelSel{
+            .menuItem{
+                .txt{color:#ffffff;}
+                .subTxt{color:#9e9e9e;}
+                &:hover {background-color: rgba(255, 255, 255, 0.04);}
+            }
+        }
+        // 파일선택
+        .dataFileSel{
+            li {color:#ffffff;
+                &.pc {background: url('../images/dark/ic_pc_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+                &.onechamber {background: url('../images/dark/ic_onechamber_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+                &.projectAdd{background: url('../images/dark/ic_project_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;
+                    &:hover {
+                        background:
+                                url('../images/dark/ic_project_outlined_18_bk_enabled@2x.png') no-repeat left 8px center / 18px,
+                                rgba(255, 255, 255, 0.04) url('../images/dark/ic_chev_right_outlined_14_bgr@2x.png') no-repeat right 8px center / 14px;
+                    }
+                }
+                &.roomAdd{background: url('../images/dark/ic_project_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+                &.projectModify{background: url('../images/dark/ic_pencil_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+                &.projectDel{background: url('../images/dark/ic_delete_outlined_18_re_enabled@2x.png') no-repeat left 8px center; background-size: 18px; color:#e65364;}
+                &.projectRemove{background: url('../images/dark/ic_removep_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+                &.titleEdit{background: url('../images/dark/ic_pencil_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+                &.delete{background: url('../images/dark/ic_delete_outlined_18_bk_enabled@2x.png') no-repeat left 8px center; background-size: 18px;}
+                &:hover {background-color: rgba(255, 255, 255, 0.04);}
+            }
+        }
+        // 분석자료
+        .fileListWrap{
+            .title{
+                .txt{color:#ffffff;}
+                .cnt{color:#5f65ff;}
+            }
+            .listCon{
+                li{
+                    &:hover {background-color: rgba(255,255,255, 0.03);}
+                    .txt01{color:#ffffff;}
+                    .txt02{color:#ffffff;
+                        .ellipsis{color: #1c90fb;background: rgba(77, 170, 255, 0.07);}
+                    }
+                    .linkTxt{color:#1c90fb;background-color:rgba(77, 170, 255, 0.07);}
+                    .chkIco{background:transparent url('../images/dark/ic_check_outlined_16_gn_enabled@2x.png') no-repeat center center; background-size: 16px;}
+                    .infoIco{background:transparent url('../images/dark/ic_error_outlined_16_re_enabled@2x.png') no-repeat center center; background-size: 16px;}
+                    .delBtn{background:transparent url('../images/dark/ic_close_outlined_16_bk_enabled@2x.png') no-repeat center center; background-size: 16px;cursor: pointer;}
+                    .previewBtn{background:transparent url('../images/dark/ic_square_search_outlined_16_bk_enabled@2x.png') no-repeat center center; background-size: 16px;cursor: pointer;}
+                    &.image{height:fit-content;
+                        &:hover {border-radius:0px;background-color:transparent;}
+                        .imgBox{border: solid 1px rgba(240, 242, 244, 0.1);}
+                    }
+                }
+            }
+            .linkInfoText{color: #879099;}
+        }
+    }
+
+    // 알럿 팝업
+    .DEWSAlert{box-shadow: 0 10px 60px 0 rgba(0, 0, 0, 0.24); background-color: #36383a;
+        .ico{
+            &.success{background: url('../images/dark/ic_complete_filled_48_gr@2x.png') no-repeat center center; background-size: 48px;}
+            &.warning{background: url('../images/dark/ic_error_triangle_filled_48_ye@2x.png') no-repeat center center; background-size: 48px;}
+            &.error{background: url('../images/dark/ic_fail_filled_48_rd@2x.png') no-repeat center center; background-size: 48px;}
+        }
+        .popCon{
+            .title{color:#ffffff;}
+            .text{color:#ffffff;}
+        }
+    }
+
+    // 드롭다운리스트 (셀렉트박스)
+    .DEWSDropDownList{color: #ffffff;
+        .selected {border: solid 1px #4c4c4c; background-color: #36383a;
+            background-image: url('../images/dark/ic_chev_down_outlined_14_bk_enabled@2x.png'); background-repeat: no-repeat; background-position:right 12px center; background-size: 16px;
+            &:focus {border-color: #5f65ff;}
+            &:hover{ border-color: #7e8185;}
+        }
+        .dropdownList {box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16);border: solid 1px #4c4c4c;background-color: #36383a;
+            li {
+                &:hover {background-color: rgba(255,255,255, 0.03);}
+            }
+        }
+        &.disabled{
+            .selected{border: solid 1px rgba(68, 66, 80, 0.16);background-color: #383839; color: #686868; background-image: url('../images/dark/ic_chev_down_outlined_14_bk_disabled@2x.png');}
+        }
+    }
+
+    // 텍스트필드 아이콘
+    .DEWSTextFieldIcon{
+        .ico{
+            &.delete{background: url('../images/dark/ic_delete_circle_filled_18_gr@2x.png') no-repeat center; background-size: 18px;}
+            &.search{background: url('../images/dark/ic_search_outlined_md_24_bgr_enabled@2x.png') no-repeat center; background-size: 24px;}
+            &.check{background: url('../images/dark/ic_check_outlined_14_bk_enabled@2x.png') no-repeat center; background-size: 14px;}
+            &.close{background: url('../images/dark/ic_close_outlined_14_bk_enabled@2x.png') no-repeat center; background-size: 14px;}
+        }
+    }
+
+    // 텍스트필드
+    .DEWSTextField{color: #ffffff; border: solid 1px #4c4c4c; background-color: rgba(255, 255, 255, 0.06);
+        &::placeholder{color: #686868;}
+        &:focus{border: 1px solid #5f65ff;}
+        &:disabled{border: solid 1px transparent; background-color: #383839; color: #686868;}
+    }
+
+    /**************************************************
+        레이아웃
+    **************************************************/
+    // 컨텐츠 (메인화면,프롬프트)
+    .container{background-color: #252526;
+        .modelSel{
+            &:hover{background-color: rgba(0, 0, 0, 0.03);}
+            .selTxt{color:#ffffff;}
+            .toggleArrow{background:url('../images/dark/ic_chev_down_outlined_12_bgr_enabled@2x.png') no-repeat center;background-size: 12px;
+                &.on{background:url('../images/dark/ic_chev_up_outlined_12_bgr_enabled@2x.png') no-repeat center;background-size: 12px;}
+            }
+        }
+        .viewSell{border: solid 1px #4c4c4c;background-color: #2d2e30;
+            .btn{box-shadow:none;background-color:transparent;
+                &.on{box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1);background-color: #3e4145;
+                    .txt{color: #ffffff;}
+                    &.chat{
+                        .ico{background:url('../images/dark/ic_chat_filled_20_on@2x.png') no-repeat center;background-size: 20px;}
+                    }
+                    &.code{
+                        .ico{background:url('../images/dark/ic_code_storage_filled_20_on@2x.png') no-repeat center;background-size: 20px;}
+                    }
+                }
+                .txt{color:rgba(171, 171, 171, 0.5);}
+                &.chat{
+                    .ico{background:url('../images/dark/ic_chat_filled_20_off@2x.png') no-repeat center;background-size: 20px;}
+                }
+                &.code{
+                    .ico{background:url('../images/dark/ic_code_storage_filled_20_off@2x.png') no-repeat center;background-size: 20px;}
+                }
+            }
+        }
+        .foldingWrap{
+            .btnIco{
+                &.folding{background:transparent url('../images/dark/ic_menu_outlined_md_24_bgr_enabled@2x.png') no-repeat center center; background-size: 24px; cursor: pointer;
+                    &:hover{background: rgba(255,255,255, 0.03) url('../images/dark/ic_menu_outlined_md_24_bgr_enabled@2x.png') no-repeat center center; background-size: 24px;}
+                }
+            }
+        }
+    }
+
+    // 블러 딤
+    .blurDim{background-color: #252526;}
+
+    // 엠티셋
+    .emptySet{
+        .bText{color:#ffffff;}
+        .sText{color: #9e9e9e;}
+    }
+
+    /**************************************************
+        LNB
+    **************************************************/
+    .lnbSidePanel{border-right: solid 1px rgba(240, 242, 244, 0.1); background-color: #323336;
+        // 헤더
+        .header{
+            .btnIco{border:1px solid transparent;background-color:transparent;
+                &.search{background-image:url('../images/dark/ic_time_search_outlined_md_24_bgr_enabled@2x.png');
+                    &:hover{background-color: rgba(255,255,255, 0.06); }
+                    &.on{border: solid 1px rgba(255,255,255, 0.12); background-color: rgba(255,255,255, 0.06);}
+                }
+                &.setting{background-image: url('../images/dark/ic_setting_outlined_md_24_bgr_enabled@2x.png');
+                    &:hover{background-color: rgba(255,255,255, 0.06);}
+                    &.on{border: solid 1px rgba(255,255,255, 0.12); background-color: rgba(255,255,255, 0.06);}
+                }
+                &.folding{background-image: url('../images/dark/ic_menu_outlined_md_24_bgr_enabled@2x.png');
+                    &:hover{background-color: rgba(255,255,255, 0.06);}
+                }
+            }
+        }
+
+        // 타이틀 공통
+        .titleBox{
+            .title{color:#ffffff;
+                &.faq{background:url('../images/dark/ic_info_outlined_md_18_bgr_enabled@2x.png') no-repeat left center / 18px; padding-left:24px; cursor: pointer;}
+            }
+            .addBtn{background:url('../images/dark/ic_add_outlined_md_18_bgr_enabled@2x.png') no-repeat center / 18px; cursor: pointer;}
+        }
+
+        .lnbConBox{
+            // 프로젝트
+            .projectCon{
+                .listItem{
+                    dl{
+                        dd{color:#ffffff;
+                            &:hover, &.on{background-color: rgba(255,255,255, 0.06);
+                                .moreBtn{background:url('../images/dark/ic_more_outlined_16_bgr@2x.png') no-repeat center / 18px; cursor: pointer;}
+                            }
+                            &.pj{background:url('../images/dark/ic_project_outlined_md_20_bgr_enabled@2x.png') no-repeat left 10px center / 20px;
+                                &:hover{background-color: rgba(255,255,255, 0.06);}
+                                &.on{background:rgba(255,255,255, 0.06) url('../images/dark/ic_projectopen_outlined_md_20_bgr_enabled@2x.png') no-repeat left 10px center / 20px;}
+                            }
+                        }
+                    }
+                }
+                .more{color:#ffffff;
+                    &.up{background:url('../images/dark/ic_chev_up_outlined_20_bgr@2x.png') no-repeat left 10px center / 20px;}
+                    &.down{background:url('../images/dark/ic_chev_down_outlined_20_bgr@2x.png') no-repeat left 10px center / 20px;}
+                }
+            }
+            //히스토리
+            .historyCon{
+                .listItem{
+                    dl{
+                        dt{color:#9e9e9e;}
+                        dd{color:#ffffff;
+                            &:hover, &.on{background-color: rgba(255,255,255, 0.06);
+                                .moreBtn{background:url('../images/dark/ic_more_outlined_16_bgr@2x.png') no-repeat right 8px center / 18px; cursor: pointer;}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // 검색팝업
+    .searchPop{
+        .searchBox{border-bottom:1px solid #4c4c4c;
+            .DEWSTextFieldIcon{
+                .DEWSTextField{border:none;background:none;}
+            }
+        }
+        .searchList{
+            .title{color:#ffffff;}
+            .NewChat{color:#ffffff;
+                background-image:url('../images/dark/ic_chat_plus_filled_18_enabled@2x.png'); background-repeat: no-repeat; background-position: left 12px center; background-size:18px;
+                &:hover{background-color: rgba(255,255,255, 0.03);}
+            }
+            .ListBox{
+                dl{
+                    dt{color: #9e9e9e;}
+                    dd{color:#ffffff;
+                        background-image:url('../images/dark/ic_chat_line_outlined_18_bk_enabled@2x.png'); background-repeat: no-repeat; background-position: left 12px center; background-size:18px;
+                        &:hover{background-color: rgba(255,255,255, 0.03);}
+                    }
+                }
+                ul{
+                    li{color:#ffffff;
+                        background-image:url('../images/dark/ic_project_outlined_md_20_bgr_enabled@2x.png'); background-repeat: no-repeat; background-position: left 12px center; background-size:20px;
+                        &:hover{background-color: rgba(255,255,255, 0.03);}
+                    }
+                }
+            }
+        }
+    }
+
+    //시스템 설정 팝업
+    .promptPop{
+        .title{border-bottom: solid 1px rgba(240, 242, 244, 0.1);
+            .tit{color:#ffffff;}
+            .txt{color: #9e9e9e;}
+        }
+        .con{
+            .conTitle{color:#ffffff;}
+            .tit{
+                .txt{color:#ffffff;}
+                .info{background: url('../images/dark/ic_info_circle_outlined_16_bgr_enabled@2x.png') no-repeat center / 16px;}
+            }
+        }
+        .btns{
+            .btnIco{
+                &.reset{background:transparent url('../images/dark/ic_refresh_outlined_md_24_bgr_enabled@2x.png') no-repeat center center; background-size: 24px; cursor: pointer;
+                    &:hover{background: rgba(255,255,255, 0.06) url('../images/dark/ic_refresh_outlined_md_24_bgr_enabled@2x.png') no-repeat center center; background-size: 24px;}
+                }
+                &.close{background:transparent url('../images/dark/ic_close_outlined_md_24_bgr_enabled@2x.png') no-repeat center center; background-size: 24px; cursor: pointer;
+                    &:hover{background: rgba(255,255,255, 0.06) url('../images/dark/ic_close_outlined_md_24_bgr_enabled@2x.png') no-repeat center center; background-size: 24px;}
+                }
+            }
+        }
+    }
+
+    /**************************************************
+        메인챗 / 프로젝트챗
+    **************************************************/
+    .mainChat{
+        // 로고영역
+        .infoBox{
+            .genAiDewsLogo{background:url('../images/dark/lg@2x.png') no-repeat center;background-size:384px 160px;}
+            .folder{background:url('../images/dark/ic_project_filled_60@2x.png') no-repeat center;background-size:60px;}
+            .title{color: #ffffff;}
+        }
+        // 작성창
+        .genAiDewsTextBox{border: 1px solid #4c4c4c;
+            &.on{
+                border: 1px solid transparent;
+                background-image: linear-gradient(#252526, #252526), linear-gradient(95deg, #2b9dff -19%, #7f6eff 63%, #e557ff);
+            }
+            &.dragOn{
+                border: 1px dashed #252526;
+                background-image: linear-gradient(#252526, #252526), linear-gradient(95deg, #2b9dff -19%, #7f6eff 63%, #e557ff);
+            }
+            &.disabled{border: 1px solid transparent;background-color:#383839;}
+            textarea{color: #ffffff;background-color:#252526;
+                &::placeholder {color : #686868;}
+                &:disabled {background-color:#383839;}
+            }
+            // 드래그 앤 드롭
+            .dragBox{
+                .txt{color:#c2c2c2;}
+            }
+            // 작성창 첨부파일
+            .fileListBox{
+                &::after{background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #252526 100%);}
+                .fileItem{border: solid 1px rgba(240, 242, 244, 0.1);background-color: #36383a;
+                    .txt01{color:#ffffff;}
+                    .txt02{color:#9e9e9e;}
+                    .txt03{color:#9e9e9e;
+                        .ellipsis{color: #1c90fb;background: rgba(0, 0, 0, 0.1);}
+                    }
+                }
+                .imageItem{border: solid 1px rgba(240, 242, 244, 0.1);}
+                .deleteBtn{background:url('../images/dark/ic_close_circle_filled_20_bk_enabled@2x.png') no-repeat center;background-size:20px;
+                    &:hover{background:url('../images/dark/ic_close_circle_filled_20_bk_hover@2x.png') no-repeat center;background-size:20px;}
+                    &:active{background:url('../images/dark/ic_close_circle_filled_20_bk_hover@2x.png') no-repeat center;background-size:20px;}
+                }
+                .moreBtn{border: solid 1px #7e8185;background: #36383a url('../images/dark/ic_more_horizontal_outlined_24_bgr_enabled@2x.png') no-repeat center;background-size:24px;
+                    &:hover{border: solid 1px #a0a4a8;}
+                    &:active{border: solid 1px #a0a4a8;}
+                }
+            }
+            // 작성창 하단 버튼영역
+            .subFnBtns{
+                &.disabled{
+                    .fnBtn{
+                        &.add{background:transparent url('../images/dark/ic_attach_outlined_md_18_bk_disabled@2x.png') no-repeat center center; background-size: 18px;}
+                    }
+                }
+                .fnBtn{
+                    &.add{background:transparent url('../images/dark/ic_attach_outlined_md_18_bk_enabled@2x.png') no-repeat center center; background-size: 18px;
+                        &:hover{background-color: rgba(255,255,255, 0.03);}
+                    }
+                }
+            }
+            // 보내기 버튼
+            .sendBtn{background:url('../images/dark/btn_send_disabled@2x.png') no-repeat center;background-size:32px;
+                &.on{background:url('../images/dark/btn_send_enabled@2x.png') no-repeat center;background-size:32px;}
+                &.on:hover{background:url('../images/dark/btn_send_hover@2x.png') no-repeat center;background-size:32px;}
+            }
+            // 생성중지 버튼
+            .stopBtn{background:url('../images/dark/btn_pause_enabled@2x.png') no-repeat center;background-size:32px;
+                &:hover{background:url('../images/dark/btn_pause_hover@2x.png') no-repeat center;background-size:32px;}
+                &.disabled{background:url('../images/dark/btn_pause_disabled@2x.png') no-repeat center;background-size:32px;}
+            }
+        }
+        // 답변 후 자료분석
+        .promptFileList{
+            .fileCon{
+                .fileItem{border: solid 1px rgba(240, 242, 244, 0.1);background-color: #36383a;
+                    .txt{color:#ffffff;}
+                    &:hover{border: solid 1px rgba(240, 242, 244, 0.5);}
+                    &:active{border: solid 1px rgba(240, 242, 244, 0.5);}
+                    .chkIco{background:transparent url('../images/dark/ic_check_outlined_16_gn_enabled@2x.png') no-repeat center center; background-size: 16px;}
+                    .infoIco{background:transparent url('../images/dark/ic_error_outlined_16_re_enabled@2x.png') no-repeat center center; background-size: 16px;}
+                    .delBtn{background:transparent url('../images/dark/ic_close_outlined_16_bk_enabled@2x.png') no-repeat center center; background-size: 16px;}
+                    .previewBtn{background:transparent url('../images/dark/ic_square_search_outlined_16_bk_enabled@2x.png') no-repeat center center; background-size: 16px;}
+                }
+            }
+            .moreBtn{border: solid 1px #7e8185;background: #36383a url('../images/dark/ic_more_horizontal_outlined_24_bgr_enabled@2x.png') no-repeat center;background-size:24px;box-sizing: border-box;cursor: pointer;
+                &:hover{border: solid 1px #a0a4a8;}
+                &:active{border: solid 1px #a0a4a8;}
+            }
+        }
+        // 추천 프롬프트
+        .promptBox{
+            .title{color:#ffffff;}
+            .promptList{
+                .prompt{
+                    &:hover{background-color: rgba(255,255,255, 0.03);}
+                    .txt{color:#c2c2c2;}
+                }
+            }
+        }
+        // 이 프로젝트 내 채팅
+        .projectMyChat{
+            .title{color: #9e9e9e;}
+            .projectChatList{
+                .chatItem{
+                    &:hover{background-color:#2d2e30;
+                        .date{visibility: hidden;}
+                        .moreBtn{background:url('../images/dark/ic_more_outlined_16_bgr@2x.png') no-repeat center / 18px; cursor: pointer;}
+                    }
+                    .txt{color:#ffffff;}
+                    .date{color:#9e9e9e;}
+                }
+            }
+            .projectChatEmpty{background-color: #2d2e30;
+                .emptyText{color:#9e9e9e;}
+            }
+        }
+        // 답변
+        .chatBox{
+            &::after{background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #252526);}
+            .chatMessageWrap{
+                &.user{
+                    .chatMessage{background:#444960;
+                        .message{color:#ffffff;}
+                    }
+                }
+                &.ai{
+                    .aiProfile{background: url('../images/dark/logo_genai_28_bk_enabled@2x.png') no-repeat center center; background-size: 140px 28px;}
+                    .chatMessage{
+                        .message{color: #ffffff;}
+                    }
+                }
+                .chatBtn{
+                    .btnIco{
+                        &.copy{background:transparent url('../images/dark/ic_squares_outlined_md_18_bgr_enabled@2x.png') no-repeat center center; background-size: 18px; cursor: pointer;}
+                        &.delete{background:transparent url('../images/dark/ic_delete_outlined_18_bgr_enabled@2x.png') no-repeat center center; background-size: 18px; cursor: pointer;}
+                        &.modify{background:transparent url('../images/dark/ic_pencil_outlined_18_bk_enabled@2x.png') no-repeat center center; background-size: 18px; cursor: pointer;}
+                        &:hover{background-color: rgba(255,255,255, 0.03);}
+                    }
+                }
+            }
+        }
+        // 하단 문구
+        .footText{color:#9e9e9e;}
+    }
+
+    /**************************************************
+        프로젝트챗
+    **************************************************/
+    // 프로젝트 채팅 생성 팝업
+    .projectChatPop{
+        .DEWSTextField{background-color: transparent;}
+        .titleBox{
+            .tit{color: #ffffff;background:url('../images/dark/ic_projectchat_outlined_24@2x.png') no-repeat left;background-size:24px;box-sizing: border-box;}
+            .closeBtn{background:url('../images/dark/ic_close_outlined_md_24_bgr_enabled@2x.png') no-repeat left;background-size:24px;cursor: pointer;}
+        }
+        .infoBox{background-color:#2d2e30;
+            .txt01{color: #ffffff;}
+            .txt02{color: #9e9e9e;}
+        }
+    }
+
+    /**************************************************
+        코드보관함
+    **************************************************/
+    .codeArchive{
+        .title{color:#ffffff;}
+        .textStickyBox{background-color: #252526;}
+        .codeList{
+            .listItem{background-color: #2d2e30;
+                &:hover{background-color:#353638;}
+                .infoBox{
+                    .category{color: #ffffff;
+                        &.html{background:url('../images/dark/ic_html_filled_24@2x.png') no-repeat left;background-size:24px;}
+                        &.css{background:url('../images/dark/ic_css_filled_24@2x.png') no-repeat left;background-size:24px;}
+                        &.javascript{background:url('../images/dark/ic_javascript@2x.png') no-repeat left;background-size:24px;}
+                        &.jsx{background:url('../images/ico/ic_javascript@2x.png') no-repeat left;background-size:24px;}
+                        &.js{background:url('../images/ico/ic_javascript@2x.png') no-repeat left;background-size:24px;}
+                        &.python{background:url('../images/dark/ic_python_filled_24@2x.png') no-repeat left;background-size:24px;}
+                        &.java{background:url('../images/dark/ic_java_filled_24@2x.png') no-repeat left;background-size:24px;}
+                        &.json{background:url('../images/dark/ic_json_filled_24@2x.png') no-repeat left;background-size:24px;}
+                        &.typescript{background:url('../images/dark/ic_typescrip_filled_24@2x.png') no-repeat left;background-size:24px;}
+                        &.tsx{background:url('../images/dark/ic_typescrip_filled_24@2x.png') no-repeat left;background-size:24px;}
+                        &.ts{background:url('../images/dark/ic_typescrip_filled_24@2x.png') no-repeat left;background-size:24px;}
+                        &.sql{background:url('../images/dark/ic_sql_filled_24@2x.png') no-repeat left;background-size:24px;}
+                        &.xml{background:url('../images/dark/ic_xml_filled_24@2x.png') no-repeat left;background-size:24px;}
+                        &.vue{background:url('../images/dark/ic-vue-filled-24@2x.png') no-repeat left;background-size:24px;}
+                        &.md{background:url('../images/dark/ic-md-filled-24@2x.png') no-repeat left;background-size:24px;}
+                        &.markdown{background:url('../images/dark/ic-md-filled-24@2x.png') no-repeat left;background-size:24px;}
+                    }
+                    .line{background-color: #d7d9de;}
+                    .txt{color: #c2c2c2;}
+                    .date{color: #9e9e9e;}
+                    .arrow{
+                        &.up{background:url('../images/dark/ic_chev_up_outlined_14_bk_enabled@2x.png') no-repeat center;background-size:14px;}
+                        &.down{background:url('../images/dark/ic_chev_down_outlined_14_bk_enabled@2x.png') no-repeat center;background-size:14px;}
+                    }
+                }
+            }
+        }
+    }
+    .blurDim{background-color: rgba(0,0,0, 0.6);}
+
+    /**************************************************
+        FAQ
+    **************************************************/
+    .faqWrap{background-color: #252526;
+        .conWrap{
+            .tabs .tab{color: rgba(171, 171, 171, 0.5);
+                &.on{color: #ffffff;}
+            }
+            .conList{border-top: 1px solid rgba(240, 242, 244, 0.5);
+                dl{border-bottom: 1px solid rgba(240, 242, 244, 0.1);
+                    dt{color: #ffffff;
+                        &.up{background-image: url('../images/dark/ic_chev_up_outlined_18_bk_enabled@2x.png');}
+                        &.down{background-image: url('../images/dark/ic_chev_down_outlined_18_bk_enabled@2x.png');}
+                    }
+                    dd{color: #ffffff; background-color: #2d2e30;
+                        span{color: rgba(255, 255, 255, 0.5);}
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.wrapper-logo-line {
+     //position: relative;
+     display: inline-flex;
+     align-items: center;
+ }
+
+
+.wrapper-logo-line .Line-77 {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 24px;
+    background-color: rgba(0,0,0,0.1);
+    margin: 0;
+}

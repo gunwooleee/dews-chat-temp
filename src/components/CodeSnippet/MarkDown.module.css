@@ -1,0 +1,58 @@
+.MarkDownWrapper {
+    /*width: 100%;*/
+    max-width: 100%;
+    padding: 0.5rem;
+
+}
+
+/*.CodeWrapper {*/
+/*    border-radius: 8px;*/
+/*    border: solid 1px #404143;*/
+/*}*/
+
+.CodeWrapper {
+    border-radius: 8px;
+    /*border: solid 1px #404143;*/
+
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    max-width: 100%;
+}
+
+/*.CodeWrapper,*/
+/*.CodeWrapper pre { white-space:pre-wrap; max-width:100%; overflow-x:auto; }*/
+
+.CodeHeader {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    line-height: 32px;
+    background-color: #28282a;
+    border-radius: 8px 8px 0 0;
+    color: white;
+    /*padding: 0 8px;*/
+}
+
+.IconWrapper{
+    float: left;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    margin: 8px;
+    background-repeat: round;
+}
+
+.CodeButtonGroup {
+    float: right;
+    margin-left: auto;
+
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    margin-right: 8px;
+    line-height: 1.54;
+}
