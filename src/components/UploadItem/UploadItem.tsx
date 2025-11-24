@@ -21,7 +21,7 @@ import ic_check_16_gn from "../../json/ic_check_16_gn.json";
 
 // SSR 비활성화하고 클라이언트에서만 로드
 const LottieAnimation = dynamic(() => import("@/lottie/LottieAnimation"), {
-  ssr: false,              // 이게 핵심!
+  ssr: false,
   loading: () => <div style={{ width: 18, height: 18 }} />, // 로딩 중 대체 UI (선택)
 });
 

@@ -18,7 +18,9 @@ type Payload = {
   project_id?: string;
   system_msg?: string;
   hyperparameter?: {
-    max_tokens?: string;
+    temperature?: number;
+    top_p?: number;
+    max_tokens?: number;
   };
   textdic?: {};
 };
@@ -153,7 +155,7 @@ export const ChatManagerProvider = ({ children }: { children: ReactNode }) => {
   const [codes, setCodes] = useState<Code[]>([]);
   const [llmModel, setLlmModel] = useState<string>("llama_douzone");
 
-  const [toppvalue, setTopPValue] = useState<string>("0.95");
+  const [toppvalue, settoppvalue] = useState<string>("0.95");
   const [tempvalue, setTempValue] = useState<string>("0.2");
   const [maxTokens, setMaxTokens] = useState<string>("4000");
   const [controller, setController] = useState<AbortController | null>(null);
@@ -572,8 +574,8 @@ export const ChatManagerProvider = ({ children }: { children: ReactNode }) => {
     setChatLoadingGenerating(true); // 답변 생성중
     setChatLoadingThinking(true); //생각 시작
     const storedModel = localStorage.getItem("llm_type") || llmModel;
-    const storedTopP = localStorage.getItem("top_p") || toppvalue;
-    const storedTemp = localStorage.getItem("temperature") || tempvalue;
+    const storedTemp = Number(localStorage.getItem("temperature") || tempvalue);
+    const storedTopP = Number(localStorage.getItem("top_p") || toppvalue);
 
     try {
       // 파일 업로드 처리 먼저
@@ -616,6 +618,10 @@ export const ChatManagerProvider = ({ children }: { children: ReactNode }) => {
         room_id: roomId,
         stream: true,
         llm_type: storedModel,
+        // hyperparameter: { // gpt4o 에서는 에러남
+        //   temperature: storedTemp,
+        //   top_p: storedTopP,
+        // },
         // system_msg: systemMessage,
         // upload_files: uploadedFiles,
         chat_type: ChatType,
@@ -629,7 +635,10 @@ export const ChatManagerProvider = ({ children }: { children: ReactNode }) => {
       }
       if (payload.llm_type === "gpt_oss_120b") {
         payload.hyperparameter = {
-          max_tokens: "10000",
+          // ...payload.hyperparameter,
+          temperature: storedTemp,
+          top_p: storedTopP,
+          max_tokens: 10000,
         };
       }
       if (uploadedFiles.length > 0 && storedModel === "gpt4") {
@@ -807,7 +816,7 @@ export const ChatManagerProvider = ({ children }: { children: ReactNode }) => {
     )
       return;
     console.log("top_p : ", top_p, "temperature : ", temperature, "")
-    setTopPValue(top_p);
+    settoppvalue(top_p);
     setTempValue(temperature);
     localStorage.setItem("top_p", top_p);
     localStorage.setItem("temperature", temperature);
