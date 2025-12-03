@@ -658,7 +658,7 @@ export const ChatManagerProvider = ({ children }: { children: ReactNode }) => {
 
       //`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/message`,
       // `/api/message`,
-      const response = await api.stream(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/message`, payload, {
+      const response = await api.stream(`/api/message`, payload, {
         signal: _controller.signal,
       });
       setController(_controller);

@@ -1,4 +1,3 @@
-// TypeScript
 export function formatThinking(raw: string): string {
   if (!raw) return "";
 

@@ -3,7 +3,7 @@ import Cookie from "@/lib/cookie";
 import { tokenDecode } from "@/lib/token";
 import _ from "lodash";
 
-// import {parseHashToKeyValue, refreshTokenExpiry, tokenExpiry} from "../Router/TokenExpiry";
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export function tokenExpiry() {
   let access_token = Cookie.get("DID_AUT");
@@ -22,7 +22,7 @@ async function getToken() {
     let DID_RAUT = Cookie.get("DID_RAUT");
     if (DID_RAUT && refreshTokenExpiry(DID_RAUT)) {
       const res = await axios.post(
-        `/api/refresh`,
+        `${BASE_URL}/api/refresh`,
         {},
         { headers: { "x-authenticate-token": DID_RAUT } },
       );
@@ -50,39 +50,6 @@ async function getHeader() {
   };
 }
 
-// async function getStreamHeader() {
-//   const baseHeader = await getHeader();
-//   return {
-//       ...baseHeader,
-//       "Accept": "text/event-stream"
-//   };
-// }
-
-// export default class api {
-//     static post = (async <T = any>(url: string, data?: any, option?: AxiosRequestConfig<AxiosRequestConfig>)=>{
-//         const defaultOptions: AxiosRequestConfig = { headers: await getHeader() };
-//         return  axios.post<T>(url,data,_.merge(defaultOptions,option));
-//     })
-
-//     static get = async <T = any>(url: string,option?: AxiosRequestConfig<AxiosRequestConfig>)=>{
-//         const defaultOptions: AxiosRequestConfig = { headers: await getHeader() };
-//         return  axios.get<T>(url,_.merge(defaultOptions,option));
-//     }
-
-//     static delete = async <T = any>(url: string,option?: AxiosRequestConfig<AxiosRequestConfig>)=>{
-//         const defaultOptions: AxiosRequestConfig = { headers: await getHeader() };
-//         return  axios.delete<T>(url,_.merge(defaultOptions,option));
-//     }
-//     static stream = async (url: string,data: any,option?: RequestInit)=> {
-//         const defaultOptions: RequestInit = { headers: await getHeader() ,method: "POST",body: JSON.stringify(data)};
-//         return fetch(url,_.merge(defaultOptions,option));
-//     }
-// }
-
-// a = {A:1}
-// b = {A:2}
-// c = _.merge(a,b) ==== {A:2}
-
 const api = {
   post: async (
     url: string,
@@ -90,22 +57,22 @@ const api = {
     option?: AxiosRequestConfig<AxiosRequestConfig>,
   ) => {
     const defaultOptions: AxiosRequestConfig = { headers: await getHeader() };
-    return axios.post(url, data, _.merge(defaultOptions, option));
+    return axios.post(`${BASE_URL}${url}`, data, _.merge(defaultOptions, option));
   },
 
   get: async (url: string) => {
     const headers = await getHeader();
-    return axios.get(url, { headers });
+    return axios.get(`${BASE_URL}${url}`, { headers });
   },
 
   delete: async (url: string) => {
     const headers = await getHeader();
-    return axios.delete(url, { headers });
+    return axios.delete(`${BASE_URL}${url}`, { headers });
   },
 
   put: async (url: string, data = {}) => {
     const headers = await getHeader();
-    return axios.put(url, data, { headers });
+    return axios.put(`${BASE_URL}${url}`, data, { headers });
   },
   stream: async (url: string, data = {}, option?: RequestInit) => {
     const defaultOptions: RequestInit = {
@@ -113,7 +80,7 @@ const api = {
       method: "POST",
       body: JSON.stringify(data),
     };
-    return fetch(url, _.merge(defaultOptions, option));
+    return fetch(`${BASE_URL}${url}`, _.merge(defaultOptions, option));
   },
 };
 
