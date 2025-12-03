@@ -3,7 +3,7 @@ import Cookie from "@/lib/cookie";
 import { tokenDecode } from "@/lib/token";
 import _ from "lodash";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+// import {parseHashToKeyValue, refreshTokenExpiry, tokenExpiry} from "../Router/TokenExpiry";
 
 export function tokenExpiry() {
   let access_token = Cookie.get("DID_AUT");
@@ -22,7 +22,7 @@ async function getToken() {
     let DID_RAUT = Cookie.get("DID_RAUT");
     if (DID_RAUT && refreshTokenExpiry(DID_RAUT)) {
       const res = await axios.post(
-        `${BASE_URL}/api/refresh`,
+        `/api/refresh`,
         {},
         { headers: { "x-authenticate-token": DID_RAUT } },
       );
@@ -57,22 +57,22 @@ const api = {
     option?: AxiosRequestConfig<AxiosRequestConfig>,
   ) => {
     const defaultOptions: AxiosRequestConfig = { headers: await getHeader() };
-    return axios.post(`${BASE_URL}${url}`, data, _.merge(defaultOptions, option));
+    return axios.post(url, data, _.merge(defaultOptions, option));
   },
 
   get: async (url: string) => {
     const headers = await getHeader();
-    return axios.get(`${BASE_URL}${url}`, { headers });
+    return axios.get(url, { headers });
   },
 
   delete: async (url: string) => {
     const headers = await getHeader();
-    return axios.delete(`${BASE_URL}${url}`, { headers });
+    return axios.delete(url, { headers });
   },
 
   put: async (url: string, data = {}) => {
     const headers = await getHeader();
-    return axios.put(`${BASE_URL}${url}`, data, { headers });
+    return axios.put(url, data, { headers });
   },
   stream: async (url: string, data = {}, option?: RequestInit) => {
     const defaultOptions: RequestInit = {
@@ -80,7 +80,7 @@ const api = {
       method: "POST",
       body: JSON.stringify(data),
     };
-    return fetch(`${BASE_URL}${url}`, _.merge(defaultOptions, option));
+    return fetch(url, _.merge(defaultOptions, option));
   },
 };
 
